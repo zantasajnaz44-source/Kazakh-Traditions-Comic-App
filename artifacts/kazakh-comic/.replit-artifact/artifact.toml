@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Қазақ дәстүрлері комиксте"
+description = "An interactive Kazakh-language app that turns Kazakh traditions into friendly three-panel comic scripts for children and adults, with suggested topics and custom prompts."
+version = "1.0.0"
+id = "artifacts/kazakh-comic"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22589
+
+[services.development]
+run = "pnpm --filter @workspace/kazakh-comic run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/kazakh-comic", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/kazakh-comic/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22589"
+BASE_PATH = "/"

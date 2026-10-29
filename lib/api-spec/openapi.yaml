@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: gemini
+    description: Kazakh tradition comic generation
 paths:
   /healthz:
     get:
@@ -24,6 +26,36 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /gemini/comic:
+    post:
+      operationId: generateTraditionComic
+      tags: [gemini]
+      summary: Generate a Kazakh comic explanation of a tradition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TraditionComicInput"
+      responses:
+        "200":
+          description: Generated comic script
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TraditionComic"
+        "400":
+          description: Invalid tradition
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+        "502":
+          description: The AI service could not generate a comic
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +65,27 @@ components:
           type: string
       required:
         - status
+    TraditionComicInput:
+      type: object
+      properties:
+        tradition:
+          type: string
+          minLength: 2
+          maxLength: 160
+      required:
+        - tradition
+    TraditionComic:
+      type: object
+      properties:
+        content:
+          type: string
+      required:
+        - content
+    GeminiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
 
