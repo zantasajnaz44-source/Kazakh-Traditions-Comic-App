@@ -1,0 +1,2 @@
+- [Comic requirements](comic-requirements.md) — actual cartoon illustrations, Kazakh setting, and girl–elder dialogue; never deliver a script alone.
+- [Comic image layout](comic-image-layout.md) — use text-free artwork and exact HTML dialogue; fixed crops avoid unreliable generated panel counts.
