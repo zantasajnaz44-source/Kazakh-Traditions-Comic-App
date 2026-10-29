@@ -41,6 +41,30 @@ export interface TraditionComic {
   panels: TraditionComicPanel[];
   meaning: string;
   closingQuestion: string;
+  /** Base64-encoded illustrated three-panel comic image */
+  comicImageData: string;
+  /** MIME type of the generated comic image */
+  comicImageMimeType: string;
+}
+
+export type TraditionComicDraftElderRole = typeof TraditionComicDraftElderRole[keyof typeof TraditionComicDraftElderRole];
+
+
+export const TraditionComicDraftElderRole = {
+  Әже: 'Әже',
+  Ата: 'Ата',
+} as const;
+
+export interface TraditionComicDraft {
+  title: string;
+  elderRole: TraditionComicDraftElderRole;
+  /**
+     * @minItems 3
+     * @maxItems 3
+     */
+  panels: TraditionComicPanel[];
+  meaning: string;
+  closingQuestion: string;
 }
 
 export interface GeminiError {

@@ -92,6 +92,38 @@ components:
           type: string
         closingQuestion:
           type: string
+        comicImageData:
+          type: string
+          description: Base64-encoded illustrated three-panel comic image
+        comicImageMimeType:
+          type: string
+          description: MIME type of the generated comic image
+      required:
+        - title
+        - elderRole
+        - panels
+        - meaning
+        - closingQuestion
+        - comicImageData
+        - comicImageMimeType
+    TraditionComicDraft:
+      type: object
+      properties:
+        title:
+          type: string
+        elderRole:
+          type: string
+          enum: ["Әже", "Ата"]
+        panels:
+          type: array
+          minItems: 3
+          maxItems: 3
+          items:
+            $ref: "#/components/schemas/TraditionComicPanel"
+        meaning:
+          type: string
+        closingQuestion:
+          type: string
       required:
         - title
         - elderRole

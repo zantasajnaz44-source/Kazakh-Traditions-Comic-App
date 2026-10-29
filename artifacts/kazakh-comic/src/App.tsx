@@ -75,10 +75,10 @@ function Home() {
               Қазақы таным — жеңіл тілмен
             </div>
             <h1 className="serif max-w-xl text-[2.8rem] font-semibold leading-[1.04] tracking-[-.045em] text-[hsl(var(--foreground))] sm:text-6xl">
-              Дәстүрдің мәнін <span className="relative whitespace-nowrap text-[hsl(var(--primary))]">оқиғаға <span className="absolute -bottom-1 left-0 h-[7px] w-full rounded-full bg-[hsl(var(--accent))]/55" /></span> айналдыр.
+              Қазақ халқының дәстүрлерін <span className="relative text-[hsl(var(--primary))]">комикс арқылы насихаттау<span className="absolute -bottom-1 left-0 h-[7px] w-full rounded-full bg-[hsl(var(--accent))]/55" /></span>
             </h1>
             <p className="mt-5 max-w-md text-base leading-7 text-[hsl(var(--muted-foreground))] sm:text-lg">
-              Бір дәстүрді таңдаңыз. Кішкентай Айша әжесінен немесе атасынан сұрап, оның мәнін әңгіме арқылы таниды.
+              Айша әжесінен не атасынан сұрап, жауапты қазақы ортада салынған үш кадрлы мультфильм-комикстен біледі.
             </p>
             <div className="mt-8 flex items-center gap-3 text-sm font-semibold text-[hsl(var(--foreground))]">
               <div className="flex -space-x-2" aria-hidden="true">
@@ -163,7 +163,7 @@ function Home() {
                 disabled={generateComic.isPending}
                 className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[hsl(var(--primary))] px-4 py-3.5 text-sm font-bold text-[hsl(var(--primary-foreground))] transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(var(--primary))] disabled:cursor-wait disabled:opacity-75"
               >
-                {generateComic.isPending ? <><LoaderCircle size={17} className="animate-spin" /> Әңгіме құрастырылып жатыр</> : <>Комикс-сценарий құрастыру <ChevronRight size={17} /></>}
+                {generateComic.isPending ? <><LoaderCircle size={17} className="animate-spin" /> Комикс жасалып жатыр</> : <>Комикс жасау <ChevronRight size={17} /></>}
               </button>
             </form>
 
@@ -187,7 +187,7 @@ function Home() {
             <div className="mb-4 flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-[hsl(var(--accent))] text-xs font-bold text-[hsl(var(--foreground))]">2</span>
-                <h2 className="serif text-2xl font-semibold">Комикс-сценарий</h2>
+                <h2 className="serif text-2xl font-semibold">Комикс</h2>
               </div>
               {comic && <span className="rounded-full bg-[hsl(var(--secondary))] px-3 py-1 text-xs font-bold text-[hsl(var(--primary))]" data-testid="status-complete">Дайын</span>}
             </div>
@@ -198,7 +198,7 @@ function Home() {
                   <div className="flex-1"><div className="skeleton-shimmer h-3 w-2/5 rounded-full" /><div className="skeleton-shimmer mt-2 h-2.5 w-1/4 rounded-full" /></div>
                 </div>
                 <div className="space-y-3"><div className="skeleton-shimmer h-3 w-full rounded-full" /><div className="skeleton-shimmer h-3 w-11/12 rounded-full" /><div className="skeleton-shimmer h-3 w-3/4 rounded-full" /></div>
-                <p className="mt-5 text-sm text-[hsl(var(--muted-foreground))]">Дәстүрдің мәнін түсінікті оқиғаға айналдырып жатырмыз…</p>
+                <p className="mt-5 text-sm text-[hsl(var(--muted-foreground))]">Үш кадрдың суреті мен кейіпкерлердің диалогы жасалып жатыр…</p>
               </div>
             ) : generateComic.isError ? (
               <div className="rounded-2xl border border-[hsl(var(--destructive))]/30 bg-[hsl(var(--destructive))]/5 p-5 sm:p-7" role="alert" data-testid="status-api-error">
@@ -206,7 +206,7 @@ function Home() {
                   <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[hsl(var(--destructive))]/10 text-[hsl(var(--destructive))]"><CircleAlert size={18} /></span>
                   <div>
                     <h3 className="font-bold">Әңгіме әзірге жасалмады</h3>
-                    <p className="mt-1 text-sm leading-6 text-[hsl(var(--muted-foreground))]">Байланыс үзілген болуы мүмкін. Қайта байқап көріңіз.</p>
+                    <p className="mt-1 text-sm leading-6 text-[hsl(var(--muted-foreground))]">Суретті комикс әзірге жасалмады. Қайта байқап көріңіз.</p>
                     <button type="button" data-testid="button-retry" onClick={() => handleSubmit()} className="mt-3 rounded-lg border border-[hsl(var(--destructive))]/35 px-3 py-2 text-sm font-bold text-[hsl(var(--destructive))] hover:bg-[hsl(var(--destructive))]/10">Қайта көру</button>
                   </div>
                 </div>
@@ -222,7 +222,18 @@ function Home() {
                   {comic.panels.map((panel, index) => (
                     <section key={index} className={`rounded-xl border p-4 ${index % 2 === 0 ? 'border-[#d6e6d8] bg-[#f1f6ec]' : 'border-[#f0dfbd] bg-[#fbf4e5]'}`} aria-label={`Кадр ${index + 1}`}>
                       <span className="panel-number mb-3 inline-block text-[10px] font-bold uppercase tracking-[.15em] text-[hsl(var(--primary))]">Кадр {String(index + 1).padStart(2, '0')}</span>
-                      <p className="mb-3 text-xs leading-5 text-[hsl(var(--muted-foreground))]">{panel.scene}</p>
+                      <div className="relative mb-3 aspect-square overflow-hidden rounded-lg border border-black/10 bg-[#f5ead2]">
+                        <img
+                          data-testid={`img-comic-panel-${index + 1}`}
+                          src={`data:${comic.comicImageMimeType};base64,${comic.comicImageData}`}
+                          alt={`Комикстің ${index + 1}-кадрындағы сурет`}
+                          className="absolute left-0 top-0 h-[200%] w-[200%] max-w-none object-cover"
+                          style={{
+                            left: index === 1 ? '-100%' : '0',
+                            top: index === 2 ? '-100%' : '0',
+                          }}
+                        />
+                      </div>
                       <div className="mb-2 rounded-2xl rounded-bl-sm border border-[#e3d7c8] bg-white/85 px-3 py-2.5">
                         <span className="text-[10px] font-bold uppercase tracking-wide text-[#b06a51]">Айша сұрайды</span>
                         <p className="mt-1 text-sm leading-6 text-[hsl(var(--foreground))]">«{panel.girlLine}»</p>
@@ -249,8 +260,8 @@ function Home() {
                   <BookOpen size={27} />
                   <span className="absolute -right-1 -top-1 grid h-5 w-5 place-items-center rounded-full bg-[hsl(var(--accent))] text-[hsl(var(--foreground))]"><Sparkles size={11} /></span>
                 </div>
-                <h3 className="serif text-xl font-semibold">Әңгіме осында ашылады</h3>
-                <p className="mt-2 max-w-xs text-sm leading-6 text-[hsl(var(--muted-foreground))]">Дәстүр атауын енгізіп, алғашқы комикс-сценарийіңізді құрастырыңыз.</p>
+                <h3 className="serif text-xl font-semibold">Суретті комикс осында шығады</h3>
+                <p className="mt-2 max-w-xs text-sm leading-6 text-[hsl(var(--muted-foreground))]">Дәстүрді таңдаңыз: Айша мен әжесінің немесе атасының мультфильм-комиксі жасалады.</p>
               </div>
             )}
           </div>

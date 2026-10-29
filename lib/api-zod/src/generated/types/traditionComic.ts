@@ -18,4 +18,8 @@ export interface TraditionComic {
   panels: TraditionComicPanel[];
   meaning: string;
   closingQuestion: string;
+  /** Base64-encoded illustrated three-panel comic image */
+  comicImageData: string;
+  /** MIME type of the generated comic image */
+  comicImageMimeType: string;
 }

@@ -43,7 +43,9 @@ export const GenerateTraditionComicResponse = zod.object({
   "elderLine": zod.string()
 })).min(generateTraditionComicResponsePanelsMin).max(generateTraditionComicResponsePanelsMax),
   "meaning": zod.string(),
-  "closingQuestion": zod.string()
+  "closingQuestion": zod.string(),
+  "comicImageData": zod.string().describe('Base64-encoded illustrated three-panel comic image'),
+  "comicImageMimeType": zod.string().describe('MIME type of the generated comic image')
 })
 
 
