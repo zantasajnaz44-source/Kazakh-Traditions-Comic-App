@@ -39,7 +39,7 @@ paths:
               $ref: "#/components/schemas/TraditionComicInput"
       responses:
         "200":
-          description: Generated comic script
+          description: Illustrated three-panel comic
           content:
             application/json:
               schema:
@@ -52,6 +52,36 @@ paths:
                 $ref: "#/components/schemas/GeminiError"
         "502":
           description: The AI service could not generate a comic
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+  /gemini/answer:
+    post:
+      operationId: answerTraditionQuestion
+      tags: [gemini]
+      summary: Answer a child's question about a tradition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TraditionQuestionInput"
+      responses:
+        "200":
+          description: AI explanation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TraditionQuestionAnswer"
+        "400":
+          description: Invalid question
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+        "502":
+          description: AI service unavailable
           content:
             application/json:
               schema:
@@ -81,7 +111,9 @@ components:
           type: string
         elderRole:
           type: string
-          enum: ["Әже", "Ата"]
+          enum: ["Әже", "Ата", "Ана", "Әке", "Тәте", "Жезде"]
+        childName:
+          type: string
         panels:
           type: array
           minItems: 3
@@ -101,35 +133,33 @@ components:
       required:
         - title
         - elderRole
+        - childName
         - panels
         - meaning
         - closingQuestion
         - comicImageData
         - comicImageMimeType
-    TraditionComicDraft:
+    TraditionQuestionInput:
       type: object
       properties:
-        title:
+        question:
           type: string
-        elderRole:
+          minLength: 2
+          maxLength: 5000
+        tradition:
           type: string
-          enum: ["Әже", "Ата"]
-        panels:
-          type: array
-          minItems: 3
-          maxItems: 3
-          items:
-            $ref: "#/components/schemas/TraditionComicPanel"
-        meaning:
+          maxLength: 160
+        comicMeaning:
           type: string
-        closingQuestion:
+          maxLength: 2000
+      required: [question]
+    TraditionQuestionAnswer:
+      type: object
+      properties:
+        answer:
           type: string
-      required:
-        - title
-        - elderRole
-        - panels
-        - meaning
-        - closingQuestion
+          minLength: 1
+      required: [answer]
     TraditionComicPanel:
       type: object
       properties:

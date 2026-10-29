@@ -11,6 +11,7 @@ import type { TraditionComicPanel } from './traditionComicPanel';
 export interface TraditionComic {
   title: string;
   elderRole: TraditionComicElderRole;
+  childName: string;
   /**
      * @minItems 3
      * @maxItems 3

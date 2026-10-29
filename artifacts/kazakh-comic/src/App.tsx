@@ -6,8 +6,15 @@ import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ComicCell, SpeechBubble } from '@/components/comic-cell';
 import { ComicReflection } from '@/components/comic-reflection';
+import { ComicAnswer } from '@/components/comic-answer';
 import NotFound from '@/pages/not-found';
-import { BookOpen, Check, ChevronRight, CircleAlert, LoaderCircle, Sparkles } from 'lucide-react';
+import { TraditionTopics } from '@/components/tradition-topics';
+import { AiQuestion } from '@/components/ai-question';
+import { FavoriteButton } from '@/components/favorite-button';
+import { FavoritesList } from '@/components/favorites-list';
+import { useTheme } from '@/hooks/use-theme';
+import { useFavorites } from '@/hooks/use-favorites';
+import { BookOpen, ChevronRight, CircleAlert, LoaderCircle, Moon, Sparkles, Sun } from 'lucide-react';
 import {
   Route,
   Switch,
@@ -21,8 +28,12 @@ function Home() {
   const [tradition, setTradition] = useState('');
   const [validationError, setValidationError] = useState('');
   const [comic, setComic] = useState<TraditionComic | null>(null);
+  const [comicTopic, setComicTopic] = useState('');
   const generateComic = useGenerateTraditionComic();
-  const ideas = ['Тұсаукесер', 'Бесікке салу', 'Наурыз көже', 'Шашу', 'Бата беру', 'Сүйінші', 'Қазақ дәстүрлерін сақтау'];
+  const { theme, toggle: toggleTheme } = useTheme();
+  const fav = useFavorites();
+  const selectedTopic = tradition.trim();
+  const comicMatches = Boolean(comic) && comicTopic === selectedTopic;
 
   const chooseTradition = (value: string) => {
     setTradition(value);
@@ -46,7 +57,7 @@ function Home() {
     setComic(null);
     generateComic.mutate(
       { data: { tradition: cleaned } },
-      { onSuccess: setComic },
+      { onSuccess: (result) => { setComic(result); setComicTopic(cleaned); } },
     );
   };
 
@@ -64,9 +75,21 @@ function Home() {
               <p className="mt-0.5 text-[10px] font-bold uppercase tracking-[.2em] text-[hsl(var(--muted-foreground))]">дәстүрді бірге танимыз</p>
             </div>
           </div>
+          <div className="flex items-center gap-2">
+          <button
+            type="button"
+            data-testid="button-theme-toggle"
+            aria-pressed={theme === 'dark'}
+            aria-label={theme === 'dark' ? 'Күндізгі режимге ауысу' : 'Түнгі режимге ауысу'}
+            onClick={toggleTheme}
+            className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 text-xs font-bold text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(var(--primary))]"
+          >
+            {theme === 'dark' ? <><Moon size={15} /> Түн</> : <><Sun size={15} /> Күн</>}
+          </button>
           <div className="hidden items-center gap-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))]/75 px-3.5 py-2 text-xs font-semibold text-[hsl(var(--muted-foreground))] sm:flex">
             <span className="h-2 w-2 rounded-full bg-[hsl(var(--primary))]" />
             Үлкенге де, кішіге де
+          </div>
           </div>
         </header>
 
@@ -130,18 +153,9 @@ function Home() {
 
             <div className="mt-5">
               <p className="mb-2.5 text-xs font-bold uppercase tracking-[.14em] text-[hsl(var(--muted-foreground))]">Бастауға болатын тақырыптар</p>
-              <div className="flex flex-wrap gap-2">
-                {ideas.map((idea) => (
-                  <button
-                    type="button"
-                    key={idea}
-                    data-testid={`button-idea-${idea}`}
-                    onClick={() => chooseTradition(idea)}
-                    className={`rounded-full border px-3 py-2 text-xs font-semibold transition hover:-translate-y-0.5 hover:border-[hsl(var(--primary))] hover:text-[hsl(var(--primary))] ${tradition === idea ? 'border-[hsl(var(--primary))] bg-[hsl(var(--secondary))] text-[hsl(var(--primary))]' : 'border-[hsl(var(--border))] bg-[hsl(var(--card))]/75 text-[hsl(var(--foreground))]'}`}
-                  >{tradition === idea && <Check size={12} className="mr-1 inline" />}{idea}</button>
-                ))}
-              </div>
+              <TraditionTopics selected={tradition} onChoose={chooseTradition} />
             </div>
+            <FavoritesList favorites={fav.favorites} error={fav.error} selected={tradition} onSelect={chooseTradition} onRemove={fav.remove} />
           </div>
 
           <div className="min-w-0">
@@ -150,7 +164,10 @@ function Home() {
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-[hsl(var(--accent))] text-xs font-bold text-[hsl(var(--foreground))]">2</span>
                 <h2 className="serif text-xl font-semibold">Комикс</h2>
               </div>
+              <div className="flex items-center gap-2">
+              {selectedTopic.length >= 2 && !comic && <FavoriteButton testId="button-favorite-selected" active={fav.isFavorite(selectedTopic)} label={selectedTopic} onToggle={() => fav.toggle(selectedTopic)} />}
               {comic && <span className="rounded-full bg-[hsl(var(--secondary))] px-3 py-1 text-xs font-bold text-[hsl(var(--primary))]" data-testid="status-complete">Дайын</span>}
+              </div>
             </div>
             {generateComic.isPending ? (
               <div className="comic-card rounded-2xl p-5 sm:p-7" role="status" data-testid="status-loading">
@@ -176,24 +193,34 @@ function Home() {
               <article className="comic-card fade-up overflow-hidden rounded-2xl" data-testid="content-comic">
                 <div className="ornament h-2" />
                 <div className="border-b border-[hsl(var(--border))] px-5 py-4 sm:px-7">
+                  <div className="flex items-start justify-between gap-3">
+                  <div>
                   <p className="text-[10px] font-bold uppercase tracking-[.18em] text-[hsl(var(--muted-foreground))]">сіз таңдаған дәстүр</p>
-                  <h3 className="serif mt-1 text-xl font-semibold text-[hsl(var(--primary))]">{comic.title || tradition.trim()}</h3>
+                  <h3 className="serif mt-1 text-xl font-semibold text-[hsl(var(--primary))]" data-testid="text-comic-title">{comic.title || comicTopic}</h3>
+                  <p className="mt-1 text-xs text-[hsl(var(--muted-foreground))]" data-testid="text-comic-characters">Кейіпкерлер: {comic.childName} және {comic.elderRole.toLocaleLowerCase('kk-KZ')}</p>
+                  </div>
+                  <FavoriteButton testId="button-favorite-comic" active={fav.isFavorite(comicTopic)} label={comicTopic} onToggle={() => fav.toggle(comicTopic)} />
+                  </div>
                 </div>
                 <div className="grid grid-cols-[repeat(3,minmax(260px,1fr))] gap-3 overflow-x-auto p-3 sm:p-4" tabIndex={0} aria-label="Үш кадрлы комикс, көлденең айналдыру">
                   {comic.panels.map((panel, index) => (
-                    <section key={index} className="mx-auto w-full max-w-[300px]" aria-label={`Кадр ${index + 1}`}>
-                      <ComicCell src={`data:${comic.comicImageMimeType};base64,${comic.comicImageData}`} index={index} alt={`Комикстің ${index + 1}-кадрындағы сурет`} testId={`img-comic-panel-${index + 1}`}>
-                        <div className="absolute inset-x-3 top-3 z-10 space-y-4">
-                          <SpeechBubble who="Айша" text={panel.girlLine} tone="girl" />
+                    <section key={index} className="w-full" aria-label={`Кадр ${index + 1}`}>
+                      <ComicCell
+                        src={`data:${comic.comicImageMimeType};base64,${comic.comicImageData}`}
+                        index={index}
+                        alt={`Комикстің ${index + 1}-кадрындағы сурет`}
+                        testId={`img-comic-panel-${index + 1}`}
+                        dialogue={<>
+                          <SpeechBubble who={comic.childName} text={panel.girlLine} tone="girl" />
                           <SpeechBubble who={comic.elderRole} text={panel.elderLine} tone="elder" />
-                        </div>
-                        <span className="panel-number absolute bottom-3 left-3 rounded-full bg-[#fffaf0] px-2.5 py-1 text-[11px] font-bold text-[hsl(var(--primary))]">{String(index + 1).padStart(2, '0')}</span>
-                      </ComicCell>
+                        </>}
+                        badge={<span className="absolute bottom-2 left-2 rounded-full comic-badge border px-2 py-0.5 text-[10px] font-bold text-[hsl(var(--primary))]">{String(index + 1).padStart(2, '0')}</span>}
+                      />
                     </section>
                   ))}
                 </div>
                 <div className="mx-4 mb-4 sm:mx-6 sm:mb-6">
-                  <ComicReflection tradition={comic.title || tradition.trim()} meaning={comic.meaning} question={comic.closingQuestion} />
+                  <ComicReflection tradition={comic.title || comicTopic} meaning={comic.meaning} question={comic.closingQuestion} />
                 </div>
                 <div className="flex items-center gap-2 border-t border-[hsl(var(--border))] px-5 py-3 text-xs text-[hsl(var(--muted-foreground))] sm:px-7">
                   <Sparkles size={14} className="text-[hsl(var(--accent))]" /> Дәстүр туралы жаңа әңгіме осы жерден басталады.
@@ -206,11 +233,15 @@ function Home() {
                   <span className="absolute -right-1 -top-1 grid h-5 w-5 place-items-center rounded-full bg-[hsl(var(--accent))] text-[hsl(var(--foreground))]"><Sparkles size={11} /></span>
                 </div>
                 <h3 className="serif text-xl font-semibold">Суретті комикс осында шығады</h3>
-                <p className="mt-2 max-w-xs text-sm leading-6 text-[hsl(var(--muted-foreground))]">Дәстүрді таңдаңыз: Айша мен әжесінің немесе атасының мультфильм-комиксі жасалады.</p>
+                <p className="mt-2 max-w-xs text-sm leading-6 text-[hsl(var(--muted-foreground))]">Дәстүрді таңдап, «Комикс жасау» батырмасын басыңыз: бала мен үлкеннің әңгімесі үш кадрлы суретті комикс болып шығады.</p>
               </div>
             )}
           </div>
         </section>
+        <div className="mt-5">
+          <ComicAnswer />
+          <AiQuestion tradition={selectedTopic} meaning={comicMatches && comic ? comic.meaning : undefined} />
+        </div>
         <footer className="mt-8 flex flex-col gap-2 border-t border-[hsl(var(--border))] pt-4 text-xs text-[hsl(var(--muted-foreground))] sm:flex-row sm:items-center sm:justify-between">
           <span>Әдет пен әңгіме · Дәстүрді ұрпаққа жақындатамыз</span>
           <span>Құрметпен, ықыласпен және түсінікті тілмен</span>

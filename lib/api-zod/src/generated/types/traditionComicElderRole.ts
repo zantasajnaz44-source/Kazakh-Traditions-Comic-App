@@ -12,4 +12,8 @@ export type TraditionComicElderRole = typeof TraditionComicElderRole[keyof typeo
 export const TraditionComicElderRole = {
   Әже: 'Әже',
   Ата: 'Ата',
+  Ана: 'Ана',
+  Әке: 'Әке',
+  Тәте: 'Тәте',
+  Жезде: 'Жезде',
 } as const;

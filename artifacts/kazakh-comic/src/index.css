@@ -416,3 +416,16 @@ button { cursor: pointer; }
     inset: -1px;
   }
 }
+
+/* Comic surfaces (light/dark) */
+:root { --comic-ink: #2f3b38; --comic-paper: #fffaf0; --comic-speech: #fbf3e1; --comic-art-bg: #f5ead2; --bubble-elder: #e2efe5; --bubble-text: hsl(190 35% 18%); --child-name: #b06a51; }
+.dark { color-scheme: dark; --comic-ink: #9fb3ad; --comic-paper: #1f3236; --comic-speech: #192a2e; --comic-art-bg: #2a3a3c; --bubble-elder: #1e3d39; --bubble-text: hsl(44 54% 93%); --child-name: #eba58b; }
+.comic-frame { border-color: var(--comic-ink); background: var(--comic-paper); }
+.comic-speech { border-color: var(--comic-ink); background: var(--comic-speech); }
+.comic-art { background: var(--comic-art-bg); }
+.bubble { border-color: var(--comic-ink); color: var(--bubble-text); }
+.bubble-child { background: var(--comic-paper); }
+.bubble-elder { background: var(--bubble-elder); }
+.bubble-child-name { color: var(--child-name); }
+.comic-badge { border-color: var(--comic-ink); background: var(--comic-paper); }
+.dark .page-shell::before { opacity: .12; }

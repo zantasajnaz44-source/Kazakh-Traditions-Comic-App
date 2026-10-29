@@ -36,7 +36,8 @@ export const generateTraditionComicResponsePanelsMax = 3;
 
 export const GenerateTraditionComicResponse = zod.object({
   "title": zod.string(),
-  "elderRole": zod.enum(['Әже', 'Ата']),
+  "elderRole": zod.enum(['Әже', 'Ата', 'Ана', 'Әке', 'Тәте', 'Жезде']),
+  "childName": zod.string(),
   "panels": zod.array(zod.object({
   "scene": zod.string(),
   "girlLine": zod.string(),
@@ -46,6 +47,32 @@ export const GenerateTraditionComicResponse = zod.object({
   "closingQuestion": zod.string(),
   "comicImageData": zod.string().describe('Base64-encoded illustrated three-panel comic image'),
   "comicImageMimeType": zod.string().describe('MIME type of the generated comic image')
+})
+
+
+/**
+ * @summary Answer a child's question about a tradition
+ */
+export const answerTraditionQuestionBodyQuestionMin = 2;
+export const answerTraditionQuestionBodyQuestionMax = 5000;
+
+export const answerTraditionQuestionBodyTraditionMax = 160;
+
+export const answerTraditionQuestionBodyComicMeaningMax = 2000;
+
+
+
+export const AnswerTraditionQuestionBody = zod.object({
+  "question": zod.string().min(answerTraditionQuestionBodyQuestionMin).max(answerTraditionQuestionBodyQuestionMax),
+  "tradition": zod.string().max(answerTraditionQuestionBodyTraditionMax).optional(),
+  "comicMeaning": zod.string().max(answerTraditionQuestionBodyComicMeaningMax).optional()
+})
+
+
+
+
+export const AnswerTraditionQuestionResponse = zod.object({
+  "answer": zod.string().min(1)
 })
 
 

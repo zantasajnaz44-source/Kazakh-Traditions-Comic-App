@@ -23,7 +23,9 @@ import type {
   GeminiError,
   HealthStatus,
   TraditionComic,
-  TraditionComicInput
+  TraditionComicInput,
+  TraditionQuestionAnswer,
+  TraditionQuestionInput
 } from './api.schemas';
 
 import { customFetch } from '../custom-fetch';
@@ -217,5 +219,93 @@ export const useGenerateTraditionComic = <TError = ErrorType<GeminiError>,
         TContext
       > => {
       return useMutation(getGenerateTraditionComicMutationOptions(options));
+    }
+
+export const getAnswerTraditionQuestionUrl = () => {
+
+
+
+
+  return `/api/gemini/answer`
+}
+
+/**
+ * @summary Answer a child's question about a tradition
+ */
+export const answerTraditionQuestion = async (traditionQuestionInput: TraditionQuestionInput, options?: Parameters<typeof customFetch>[1]): Promise<TraditionQuestionAnswer> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<TraditionQuestionAnswer>(getAnswerTraditionQuestionUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(traditionQuestionInput)
+  }
+);}
+
+
+
+
+
+export const getAnswerTraditionQuestionMutationKey = () => ['answerTraditionQuestion'] as const;
+
+export const getAnswerTraditionQuestionMutationOptions = <TError = ErrorType<GeminiError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof answerTraditionQuestion>>, TError,AnswerTraditionQuestionMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof answerTraditionQuestion>>, TError,AnswerTraditionQuestionMutationVariables, TContext> => {
+
+const mutationKey = getAnswerTraditionQuestionMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof answerTraditionQuestion>>, AnswerTraditionQuestionMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  answerTraditionQuestion(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AnswerTraditionQuestionMutationResult = NonNullable<Awaited<ReturnType<typeof answerTraditionQuestion>>>
+    export type AnswerTraditionQuestionMutationBody = BodyType<TraditionQuestionInput>
+    export type AnswerTraditionQuestionMutationError = ErrorType<GeminiError>
+    export type AnswerTraditionQuestionMutationVariables = {data: BodyType<TraditionQuestionInput>}
+
+    /**
+ * @summary Answer a child's question about a tradition
+ */
+export const useAnswerTraditionQuestion = <TError = ErrorType<GeminiError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof answerTraditionQuestion>>, TError,AnswerTraditionQuestionMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof answerTraditionQuestion>>,
+        TError,
+        AnswerTraditionQuestionMutationVariables,
+        TContext
+      > => {
+      return useMutation(getAnswerTraditionQuestionMutationOptions(options));
     }
 

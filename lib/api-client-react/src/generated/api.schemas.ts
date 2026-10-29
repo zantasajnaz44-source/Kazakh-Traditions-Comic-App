@@ -23,6 +23,10 @@ export type TraditionComicElderRole = typeof TraditionComicElderRole[keyof typeo
 export const TraditionComicElderRole = {
   Әже: 'Әже',
   Ата: 'Ата',
+  Ана: 'Ана',
+  Әке: 'Әке',
+  Тәте: 'Тәте',
+  Жезде: 'Жезде',
 } as const;
 
 export interface TraditionComicPanel {
@@ -34,6 +38,7 @@ export interface TraditionComicPanel {
 export interface TraditionComic {
   title: string;
   elderRole: TraditionComicElderRole;
+  childName: string;
   /**
      * @minItems 3
      * @maxItems 3
@@ -47,24 +52,21 @@ export interface TraditionComic {
   comicImageMimeType: string;
 }
 
-export type TraditionComicDraftElderRole = typeof TraditionComicDraftElderRole[keyof typeof TraditionComicDraftElderRole];
-
-
-export const TraditionComicDraftElderRole = {
-  Әже: 'Әже',
-  Ата: 'Ата',
-} as const;
-
-export interface TraditionComicDraft {
-  title: string;
-  elderRole: TraditionComicDraftElderRole;
+export interface TraditionQuestionInput {
   /**
-     * @minItems 3
-     * @maxItems 3
+     * @minLength 2
+     * @maxLength 5000
      */
-  panels: TraditionComicPanel[];
-  meaning: string;
-  closingQuestion: string;
+  question: string;
+  /** @maxLength 160 */
+  tradition?: string;
+  /** @maxLength 2000 */
+  comicMeaning?: string;
+}
+
+export interface TraditionQuestionAnswer {
+  /** @minLength 1 */
+  answer: string;
 }
 
 export interface GeminiError {
