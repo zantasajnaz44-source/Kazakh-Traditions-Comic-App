@@ -15,6 +15,12 @@ Comic artwork should be large, including a real illustrated comic near the headl
 
 **How to apply:** Keep illustrations prominent in both the introduction and generated results.
 
+Keep three illustrated panels, with dialogue directly on the pictures. Below every comic, include “Дәстүрдің мәні” and a family reflection assignment: ask parents about the tradition, describe what happened (or why it was not held), and explain the child's understanding.
+
+**Why:** The user confirmed they like the three-panel approach and explicitly asked for these learning prompts, using тұсаукесер as an example.
+
+**How to apply:** Match the question to the comic's tradition rather than asking about тұсаукесер for every story. Do not restore the removed introductory sentence describing Айша learning through a three-panel comic.
+
 The requested theme/headline is “Қазақ халқының дәстүрлерін комикс арқылы насихаттау”.
 
 **Why:** The user explicitly requested this wording.

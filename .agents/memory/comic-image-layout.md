@@ -7,7 +7,7 @@ Keep Kazakh dialogue in HTML speech bubbles rather than relying on the image mod
 
 **Why:** Exact readable Kazakh dialogue is central to this educational comic, and generated image text is unreliable.
 
-**How to apply:** Preserve the separation between artwork and exact dialogue when revising generation or presentation.
+**How to apply:** Preserve the separation between artwork and exact dialogue when revising generation or presentation. Render the HTML speech bubbles over the illustrations, never as dialogue cards below them: the user explicitly requested words on the comic.
 
 Use a fixed square storyboard layout and display only the three intended story cells. Keep the image prompt and renderer's crop positions aligned.
 

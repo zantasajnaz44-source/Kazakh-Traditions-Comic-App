@@ -5,6 +5,7 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ComicCell, SpeechBubble } from '@/components/comic-cell';
+import { ComicReflection } from '@/components/comic-reflection';
 import NotFound from '@/pages/not-found';
 import { BookOpen, Check, ChevronRight, CircleAlert, LoaderCircle, Sparkles } from 'lucide-react';
 import {
@@ -84,24 +85,29 @@ function Home() {
             <h1 className="serif text-[2.2rem] font-semibold leading-[1.08] tracking-[-.035em] text-[hsl(var(--foreground))] sm:text-5xl lg:text-[3.6rem]">
               Қазақ халқының дәстүрлерін <span className="text-[hsl(var(--primary))]">комикс арқылы насихаттау</span>
             </h1>
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[hsl(var(--muted-foreground))] sm:text-lg">
-              Айша киіз үйде әжесінен сұрайды, ал жауабын үш кадрлы суретті комикстен біледі.
-            </p>
           </div>
           <div className="comic-card fade-up relative mt-10 overflow-hidden rounded-[1.7rem] p-3 sm:p-5" data-testid="content-sample-comic">
             <div className="ornament mb-4 h-2 rounded-full" />
-            <div className="grid gap-5 md:grid-cols-3">
+            <div className="grid gap-5 lg:grid-cols-3">
               {sample.map((item, index) => (
                 <div key={index} className="flex flex-col gap-3">
                   <div className="relative aspect-square overflow-hidden rounded-xl border-2 border-[#2f3b38] bg-[#f5ead2]">
                     <img src={`${sampleSrc}${index + 1}.webp`} alt={`Бесікке салу: ${index + 1}-кадр`} data-testid={`img-sample-panel-${index + 1}`} className="h-full w-full object-cover" />
-                    <span className="panel-number absolute left-3 top-3 rounded-full bg-[#fffaf0] px-2.5 py-1 text-[11px] font-bold text-[hsl(var(--primary))]">{String(index + 1).padStart(2, '0')}</span>
+                    <div className="absolute inset-x-3 top-3 z-10">
+                      <SpeechBubble who={item.who} text={item.text} tone={item.tone} />
+                    </div>
+                    <span className="panel-number absolute bottom-3 left-3 rounded-full bg-[#fffaf0] px-2.5 py-1 text-[11px] font-bold text-[hsl(var(--primary))]">{String(index + 1).padStart(2, '0')}</span>
                   </div>
-                  <SpeechBubble who={item.who} text={item.text} tone={item.tone} />
                 </div>
               ))}
             </div>
             <p className="mt-4 px-1 text-xs font-bold uppercase tracking-[.16em] text-[hsl(var(--muted-foreground))]">Үлгі: Бесікке салу</p>
+            <div className="mt-5">
+              <ComicReflection
+                tradition="Бесікке салу"
+                meaning="Бесікке салу — сәбиге қамқорлық пен ақ тілек білдіретін дәстүр. Бесік жыры мен үлкендердің батасы арқылы балаға мейірім, отбасына ізгі ниет дариды."
+              />
+            </div>
           </div>
         </section>
 
@@ -193,22 +199,21 @@ function Home() {
                   <p className="text-[10px] font-bold uppercase tracking-[.18em] text-[hsl(var(--muted-foreground))]">сіз таңдаған дәстүр</p>
                   <h3 className="serif mt-1 text-2xl font-semibold text-[hsl(var(--primary))]">{comic.title || tradition.trim()}</h3>
                 </div>
-                <div className="grid gap-5 p-4 sm:p-6 md:grid-cols-3">
+                <div className="grid gap-5 p-4 sm:p-6 lg:grid-cols-3">
                   {comic.panels.map((panel, index) => (
-                    <section key={index} className={`rounded-xl border p-4 ${index % 2 === 0 ? 'border-[#d6e6d8] bg-[#f1f6ec]' : 'border-[#f0dfbd] bg-[#fbf4e5]'}`} aria-label={`Кадр ${index + 1}`}>
-                      <span className="panel-number mb-3 inline-block text-[10px] font-bold uppercase tracking-[.15em] text-[hsl(var(--primary))]">Кадр {String(index + 1).padStart(2, '0')}</span>
-                      <div className="mb-3"><ComicCell src={`data:${comic.comicImageMimeType};base64,${comic.comicImageData}`} index={index} alt={`Комикстің ${index + 1}-кадрындағы сурет`} testId={`img-comic-panel-${index + 1}`} /></div>
-                      <div className="space-y-2">
-                        <SpeechBubble who="Айша сұрайды" text={panel.girlLine} tone="girl" />
-                        <SpeechBubble who={`${comic.elderRole} жауап береді`} text={panel.elderLine} tone="elder" />
-                      </div>
+                    <section key={index} aria-label={`Кадр ${index + 1}`}>
+                      <ComicCell src={`data:${comic.comicImageMimeType};base64,${comic.comicImageData}`} index={index} alt={`Комикстің ${index + 1}-кадрындағы сурет`} testId={`img-comic-panel-${index + 1}`}>
+                        <div className="absolute inset-x-3 top-3 z-10 space-y-4">
+                          <SpeechBubble who="Айша" text={panel.girlLine} tone="girl" />
+                          <SpeechBubble who={comic.elderRole} text={panel.elderLine} tone="elder" />
+                        </div>
+                        <span className="panel-number absolute bottom-3 left-3 rounded-full bg-[#fffaf0] px-2.5 py-1 text-[11px] font-bold text-[hsl(var(--primary))]">{String(index + 1).padStart(2, '0')}</span>
+                      </ComicCell>
                     </section>
                   ))}
                 </div>
-                <div className="mx-4 mb-4 rounded-xl bg-[hsl(var(--secondary))]/55 p-4 sm:mx-6 sm:mb-6 sm:p-5">
-                  <p className="text-[10px] font-bold uppercase tracking-[.16em] text-[hsl(var(--primary))]">Дәстүрдің мәні</p>
-                  <p className="mt-2 text-sm leading-6 text-[hsl(var(--foreground))]">{comic.meaning}</p>
-                  <p className="mt-3 border-t border-[hsl(var(--primary))]/15 pt-3 text-sm font-semibold leading-6 text-[hsl(var(--primary))]">{comic.closingQuestion}</p>
+                <div className="mx-4 mb-4 sm:mx-6 sm:mb-6">
+                  <ComicReflection tradition={comic.title || tradition.trim()} meaning={comic.meaning} question={comic.closingQuestion} />
                 </div>
                 <div className="flex items-center gap-2 border-t border-[hsl(var(--border))] px-5 py-3 text-xs text-[hsl(var(--muted-foreground))] sm:px-7">
                   <Sparkles size={14} className="text-[hsl(var(--accent))]" /> Дәстүр туралы жаңа әңгіме осы жерден басталады.
