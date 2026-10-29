@@ -17,8 +17,30 @@ export interface TraditionComicInput {
   tradition: string;
 }
 
+export type TraditionComicElderRole = typeof TraditionComicElderRole[keyof typeof TraditionComicElderRole];
+
+
+export const TraditionComicElderRole = {
+  Әже: 'Әже',
+  Ата: 'Ата',
+} as const;
+
+export interface TraditionComicPanel {
+  scene: string;
+  girlLine: string;
+  elderLine: string;
+}
+
 export interface TraditionComic {
-  content: string;
+  title: string;
+  elderRole: TraditionComicElderRole;
+  /**
+     * @minItems 3
+     * @maxItems 3
+     */
+  panels: TraditionComicPanel[];
+  meaning: string;
+  closingQuestion: string;
 }
 
 export interface GeminiError {

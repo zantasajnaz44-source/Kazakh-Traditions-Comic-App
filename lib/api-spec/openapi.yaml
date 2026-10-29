@@ -77,10 +77,40 @@ components:
     TraditionComic:
       type: object
       properties:
-        content:
+        title:
+          type: string
+        elderRole:
+          type: string
+          enum: ["Әже", "Ата"]
+        panels:
+          type: array
+          minItems: 3
+          maxItems: 3
+          items:
+            $ref: "#/components/schemas/TraditionComicPanel"
+        meaning:
+          type: string
+        closingQuestion:
           type: string
       required:
-        - content
+        - title
+        - elderRole
+        - panels
+        - meaning
+        - closingQuestion
+    TraditionComicPanel:
+      type: object
+      properties:
+        scene:
+          type: string
+        girlLine:
+          type: string
+        elderLine:
+          type: string
+      required:
+        - scene
+        - girlLine
+        - elderLine
     GeminiError:
       type: object
       properties:

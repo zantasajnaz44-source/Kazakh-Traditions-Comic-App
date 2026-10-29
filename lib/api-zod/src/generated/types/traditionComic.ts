@@ -5,7 +5,17 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { TraditionComicElderRole } from './traditionComicElderRole';
+import type { TraditionComicPanel } from './traditionComicPanel';
 
 export interface TraditionComic {
-  content: string;
+  title: string;
+  elderRole: TraditionComicElderRole;
+  /**
+     * @minItems 3
+     * @maxItems 3
+     */
+  panels: TraditionComicPanel[];
+  meaning: string;
+  closingQuestion: string;
 }

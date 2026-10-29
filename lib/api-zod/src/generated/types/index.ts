@@ -9,4 +9,6 @@
 export * from './geminiError';
 export * from './healthStatus';
 export * from './traditionComic';
+export * from './traditionComicElderRole';
 export * from './traditionComicInput';
+export * from './traditionComicPanel';

@@ -1,6 +1,6 @@
 import { type FormEvent, type ReactNode, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useGenerateTraditionComic } from '@workspace/api-client-react';
+import { useGenerateTraditionComic, type TraditionComic } from '@workspace/api-client-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -18,14 +18,14 @@ const queryClient = new QueryClient();
 function Home() {
   const [tradition, setTradition] = useState('');
   const [validationError, setValidationError] = useState('');
-  const [comic, setComic] = useState('');
+  const [comic, setComic] = useState<TraditionComic | null>(null);
   const generateComic = useGenerateTraditionComic();
-  const ideas = ['Тұсаукесер', 'Бесікке салу', 'Наурыз көже', 'Шашу', 'Бата беру', 'Сүйінші'];
+  const ideas = ['Тұсаукесер', 'Бесікке салу', 'Наурыз көже', 'Шашу', 'Бата беру', 'Сүйінші', 'Қазақ дәстүрлерін сақтау'];
 
   const chooseTradition = (value: string) => {
     setTradition(value);
     setValidationError('');
-    setComic('');
+    setComic(null);
     generateComic.reset();
   };
 
@@ -41,10 +41,10 @@ function Home() {
       return;
     }
     setValidationError('');
-    setComic('');
+    setComic(null);
     generateComic.mutate(
       { data: { tradition: cleaned } },
-      { onSuccess: (result) => setComic(result.content) },
+      { onSuccess: setComic },
     );
   };
 
@@ -78,7 +78,7 @@ function Home() {
               Дәстүрдің мәнін <span className="relative whitespace-nowrap text-[hsl(var(--primary))]">оқиғаға <span className="absolute -bottom-1 left-0 h-[7px] w-full rounded-full bg-[hsl(var(--accent))]/55" /></span> айналдыр.
             </h1>
             <p className="mt-5 max-w-md text-base leading-7 text-[hsl(var(--muted-foreground))] sm:text-lg">
-              Бір дәстүрді таңдаңыз. Біз оның тарихы мен мағынасын шағын комикс-сценарий етіп түсіндіреміз.
+              Бір дәстүрді таңдаңыз. Кішкентай Айша әжесінен немесе атасынан сұрап, оның мәнін әңгіме арқылы таниды.
             </p>
             <div className="mt-8 flex items-center gap-3 text-sm font-semibold text-[hsl(var(--foreground))]">
               <div className="flex -space-x-2" aria-hidden="true">
@@ -100,20 +100,26 @@ function Home() {
                 <div className="flex min-h-[206px] flex-col justify-between rounded-[1.2rem] bg-[#e8f1df] p-5 sm:min-h-[230px] sm:p-6">
                   <span className="w-fit rounded-full bg-[hsl(var(--card))]/80 px-3 py-1 text-[10px] font-bold uppercase tracking-[.18em] text-[hsl(var(--primary))]">шағын көрініс</span>
                   <div>
-                    <p className="serif text-3xl font-semibold leading-tight text-[#244b48] sm:text-4xl">«Алдымен<br />ақ тілегін айт…»</p>
-                    <p className="mt-3 max-w-[220px] text-sm leading-5 text-[#526d63]">Әр дәстүрдің артында ұрпаққа жеткен бір ізгі ой бар.</p>
+                    <p className="serif text-2xl font-semibold leading-tight text-[#244b48] sm:text-3xl">«Әже, бұл дәстүрді неге сақтаймыз?»</p>
+                    <p className="mt-3 max-w-[240px] text-sm leading-5 text-[#526d63]">«Балам, дәстүр — ұрпаққа жеткен ізгі аманат.»</p>
                   </div>
                 </div>
-                <div className="relative flex flex-col items-center justify-center overflow-hidden rounded-[1.2rem] bg-[#f1d795]">
+                <div className="relative flex flex-col items-center justify-center overflow-hidden rounded-[1.2rem] bg-[#f1d795] p-2">
                   <div className="absolute -right-6 -top-5 h-24 w-24 rounded-full border-[12px] border-[#e6bd62]/45" />
-                  <div className="relative grid h-[88px] w-[72px] place-items-center rounded-t-[2.8rem] rounded-b-[1.8rem] border-2 border-[#365854] bg-[#9bcbb6] shadow-[inset_-8px_-5px_0_rgba(30,75,65,.1)]">
-                    <div className="absolute top-8 flex gap-3"><i className="h-1.5 w-1.5 rounded-full bg-[#244b48]" /><i className="h-1.5 w-1.5 rounded-full bg-[#244b48]" /></div>
-                    <div className="absolute bottom-5 h-2 w-4 rounded-full border-b-2 border-[#244b48]" />
-                    <div className="absolute -top-2 h-5 w-16 rounded-full border-2 border-[#365854] bg-[#e8896e]" />
-                  </div>
-                  <div className="mt-3 h-1.5 w-14 rounded-full bg-[#4e7b6a]/35" />
-                  <div className="mt-1.5 h-1.5 w-9 rounded-full bg-[#4e7b6a]/25" />
-                  <div className="absolute bottom-4 right-4 h-5 w-5 rotate-45 border-2 border-[#365854]/50" />
+                  <svg viewBox="0 0 120 110" className="relative w-full max-w-[108px]" role="img" aria-label="Айша әжесімен сөйлесіп отыр">
+                    <path d="M7 105c1-23 12-35 29-35s28 12 29 35H7Z" fill="#528c79" />
+                    <path d="M59 105c1-23 12-35 29-35s24 12 25 35H59Z" fill="#e8896e" />
+                    <circle cx="36" cy="43" r="19" fill="#edbd9e" />
+                    <circle cx="88" cy="43" r="19" fill="#f2c8a5" />
+                    <path d="M17 41c0-18 10-29 23-27 11 1 17 10 16 22-7-7-14-9-23-8-4 7-9 11-16 13Z" fill="#e5e0d2" />
+                    <path d="M70 40c2-15 12-23 21-22 11 0 18 8 19 21-8-6-14-8-22-8-5 5-10 8-18 9Z" fill="#51433a" />
+                    <circle cx="30" cy="45" r="1.6" fill="#365854" /><circle cx="42" cy="45" r="1.6" fill="#365854" />
+                    <circle cx="82" cy="45" r="1.6" fill="#365854" /><circle cx="94" cy="45" r="1.6" fill="#365854" />
+                    <path d="M32 53q4 4 8 0M84 53q4 4 8 0" fill="none" stroke="#365854" strokeLinecap="round" strokeWidth="1.8" />
+                    <path d="M60 28h34a8 8 0 0 1 8 8v4H66a7 7 0 0 1-7-7v-5Z" fill="#fffaf0" stroke="#528c79" strokeWidth="1.5" />
+                    <circle cx="68" cy="35" r="1" fill="#528c79" /><circle cx="74" cy="35" r="1" fill="#528c79" /><circle cx="80" cy="35" r="1" fill="#528c79" />
+                  </svg>
+                  <span className="relative mt-1 rounded-full bg-white/70 px-2 py-1 text-[9px] font-bold text-[#365854]">Айша · Әже</span>
                 </div>
               </div>
               <div className="flex items-center justify-between px-4 pb-2 pt-1">
@@ -138,9 +144,9 @@ function Home() {
                   data-testid="input-tradition"
                   value={tradition}
                   onChange={(event) => { setTradition(event.target.value); setValidationError(''); }}
-                  placeholder="Мысалы: тұсаукесер"
+                  placeholder="Мысалы: тұсаукесер немесе дәстүрді сақтау"
                   rows={2}
-                  maxLength={180}
+                  maxLength={160}
                   aria-invalid={Boolean(validationError)}
                   aria-describedby={validationError ? 'tradition-error' : 'tradition-hint'}
                   className="block w-full resize-none bg-transparent px-3 py-2.5 text-sm leading-6 outline-none placeholder:text-[hsl(var(--muted-foreground))]/75"
@@ -210,15 +216,28 @@ function Home() {
                 <div className="ornament h-2" />
                 <div className="border-b border-[hsl(var(--border))] px-5 py-4 sm:px-7">
                   <p className="text-[10px] font-bold uppercase tracking-[.18em] text-[hsl(var(--muted-foreground))]">сіз таңдаған дәстүр</p>
-                  <h3 className="serif mt-1 text-2xl font-semibold text-[hsl(var(--primary))]">{tradition.trim()}</h3>
+                  <h3 className="serif mt-1 text-2xl font-semibold text-[hsl(var(--primary))]">{comic.title || tradition.trim()}</h3>
                 </div>
-                <div className="space-y-3 p-4 sm:p-6">
-                  {comic.split(/\n\s*\n/).filter((part) => part.trim()).map((part, index) => (
-                    <div key={`${index}-${part.slice(0, 16)}`} className={`relative rounded-xl border p-4 sm:p-5 ${index % 2 === 0 ? 'border-[#d6e6d8] bg-[#f1f6ec]' : 'border-[#f0dfbd] bg-[#fbf4e5]'}`}>
-                      <span className="panel-number mb-2 inline-block text-[10px] font-bold uppercase tracking-[.15em] text-[hsl(var(--primary))]">Көрініс {String(index + 1).padStart(2, '0')}</span>
-                      <p className="content-copy text-sm leading-7 text-[hsl(var(--foreground))] sm:text-[15px]">{part.trim()}</p>
-                    </div>
+                <div className="grid gap-3 p-4 sm:grid-cols-2 sm:p-6 xl:grid-cols-3">
+                  {comic.panels.map((panel, index) => (
+                    <section key={index} className={`rounded-xl border p-4 ${index % 2 === 0 ? 'border-[#d6e6d8] bg-[#f1f6ec]' : 'border-[#f0dfbd] bg-[#fbf4e5]'}`} aria-label={`Кадр ${index + 1}`}>
+                      <span className="panel-number mb-3 inline-block text-[10px] font-bold uppercase tracking-[.15em] text-[hsl(var(--primary))]">Кадр {String(index + 1).padStart(2, '0')}</span>
+                      <p className="mb-3 text-xs leading-5 text-[hsl(var(--muted-foreground))]">{panel.scene}</p>
+                      <div className="mb-2 rounded-2xl rounded-bl-sm border border-[#e3d7c8] bg-white/85 px-3 py-2.5">
+                        <span className="text-[10px] font-bold uppercase tracking-wide text-[#b06a51]">Айша сұрайды</span>
+                        <p className="mt-1 text-sm leading-6 text-[hsl(var(--foreground))]">«{panel.girlLine}»</p>
+                      </div>
+                      <div className="rounded-2xl rounded-br-sm border border-[#cddfd3] bg-[#e2efe5] px-3 py-2.5">
+                        <span className="text-[10px] font-bold uppercase tracking-wide text-[hsl(var(--primary))]">{comic.elderRole} жауап береді</span>
+                        <p className="mt-1 text-sm leading-6 text-[hsl(var(--foreground))]">«{panel.elderLine}»</p>
+                      </div>
+                    </section>
                   ))}
+                </div>
+                <div className="mx-4 mb-4 rounded-xl bg-[hsl(var(--secondary))]/55 p-4 sm:mx-6 sm:mb-6 sm:p-5">
+                  <p className="text-[10px] font-bold uppercase tracking-[.16em] text-[hsl(var(--primary))]">Дәстүрдің мәні</p>
+                  <p className="mt-2 text-sm leading-6 text-[hsl(var(--foreground))]">{comic.meaning}</p>
+                  <p className="mt-3 border-t border-[hsl(var(--primary))]/15 pt-3 text-sm font-semibold leading-6 text-[hsl(var(--primary))]">{comic.closingQuestion}</p>
                 </div>
                 <div className="flex items-center gap-2 border-t border-[hsl(var(--border))] px-5 py-3 text-xs text-[hsl(var(--muted-foreground))] sm:px-7">
                   <Sparkles size={14} className="text-[hsl(var(--accent))]" /> Дәстүр туралы жаңа әңгіме осы жерден басталады.

@@ -29,8 +29,21 @@ export const GenerateTraditionComicBody = zod.object({
   "tradition": zod.string().min(generateTraditionComicBodyTraditionMin).max(generateTraditionComicBodyTraditionMax)
 })
 
+export const generateTraditionComicResponsePanelsMin = 3;
+export const generateTraditionComicResponsePanelsMax = 3;
+
+
+
 export const GenerateTraditionComicResponse = zod.object({
-  "content": zod.string()
+  "title": zod.string(),
+  "elderRole": zod.enum(['Әже', 'Ата']),
+  "panels": zod.array(zod.object({
+  "scene": zod.string(),
+  "girlLine": zod.string(),
+  "elderLine": zod.string()
+})).min(generateTraditionComicResponsePanelsMin).max(generateTraditionComicResponsePanelsMax),
+  "meaning": zod.string(),
+  "closingQuestion": zod.string()
 })
 
 
