@@ -16,12 +16,6 @@ import {
 } from 'wouter';
 
 const queryClient = new QueryClient();
-const sampleSrc = `${import.meta.env.BASE_URL}besik-panel-`;
-const sample: { who: string; text: string; tone: 'girl' | 'elder' }[] = [
-  { who: 'Айша', text: 'Әже, баланы бесікке салып, неге бауын байлаймыз?', tone: 'girl' },
-  { who: 'Әже', text: 'Бесік сәбидің тыныш ұйықтауына көмектеседі, балам. Бауды жайлы, қатты қыспай байлаймыз.', tone: 'elder' },
-  { who: 'Әже', text: 'Ал «жолы жарық болсын» деп, сәбиге ақ тілегіміз бен батамызды береміз.', tone: 'elder' },
-];
 
 function Home() {
   const [tradition, setTradition] = useState('');
@@ -86,32 +80,18 @@ function Home() {
               Қазақ халқының дәстүрлерін <span className="text-[hsl(var(--primary))]">комикс арқылы насихаттау</span>
             </h1>
           </div>
-          <div className="comic-card fade-up relative mt-6 overflow-hidden rounded-2xl p-3 sm:p-4" data-testid="content-sample-comic">
-            <div className="ornament mb-3 h-1.5 rounded-full" />
-            <div className="grid grid-cols-[repeat(3,minmax(260px,1fr))] gap-3 overflow-x-auto pb-2" tabIndex={0} aria-label="Үш кадрлы комикс, көлденең айналдыру">
-              {sample.map((item, index) => (
-                <div key={index} className="mx-auto flex w-full max-w-[300px] flex-col gap-2">
-                  <div className="relative aspect-square overflow-hidden rounded-xl border-2 border-[#2f3b38] bg-[#f5ead2]">
-                    <img src={`${sampleSrc}${index + 1}.webp`} alt={`Бесікке салу: ${index + 1}-кадр`} data-testid={`img-sample-panel-${index + 1}`} className="h-full w-full object-cover" />
-                    <div className="absolute inset-x-3 top-3 z-10">
-                      <SpeechBubble who={item.who} text={item.text} tone={item.tone} />
-                    </div>
-                    <span className="panel-number absolute bottom-3 left-3 rounded-full bg-[#fffaf0] px-2.5 py-1 text-[11px] font-bold text-[hsl(var(--primary))]">{String(index + 1).padStart(2, '0')}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className="mt-3 px-1 text-[10px] font-bold uppercase tracking-[.16em] text-[hsl(var(--muted-foreground))]">Үлгі: Бесікке салу</p>
-            <div className="mt-3">
-              <ComicReflection
-                tradition="Бесікке салу"
-                meaning="Бесікке салу — сәбиге қамқорлық пен ақ тілек білдіретін дәстүр. Бесік жыры мен үлкендердің батасы арқылы балаға мейірім, отбасына ізгі ниет дариды."
-              />
-            </div>
+          <div className="fade-up mt-5 flex flex-col items-center gap-4" data-testid="content-hero-decoration">
+            <svg aria-hidden="true" viewBox="0 0 180 32" className="h-7 w-44 text-[hsl(var(--primary))]/65" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M2 16h29m118 0h29M39 16c-12-14-19-3-12 3 6 5 14-1 14-7M141 16c12-14 19-3 12 3-6 5-14-1-14-7M57 16c-17-20-28-3-16 5 9 6 21-2 16-12m66 7c17-20 28-3 16 5-9 6-21-2-16-12M65 16l14-10 11 10-11 10-14-10Zm50 0L101 6 90 16l11 10 14-10Z" />
+            </svg>
+            <p className="text-[11px] font-bold uppercase tracking-[.22em] text-[hsl(var(--muted-foreground))]">Мұра · Өнеге · Ұрпақ</p>
+            <a href="#comic-generator" className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[hsl(var(--primary))] px-5 py-2.5 text-sm font-bold text-[hsl(var(--primary-foreground))] transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(var(--primary))]">
+              Комикс жасау <ChevronRight size={16} />
+            </a>
           </div>
         </section>
 
-        <section className="grid gap-5 border-t border-[hsl(var(--border))] pt-6" aria-label="Дәстүр таңдау және комикс">
+        <section id="comic-generator" className="grid scroll-mt-5 gap-5 border-t border-[hsl(var(--border))] pt-6" aria-label="Дәстүр таңдау және комикс">
           <div>
             <div className="mb-4 flex items-center gap-2">
               <span className="grid h-7 w-7 place-items-center rounded-full bg-[hsl(var(--primary))] text-xs font-bold text-[hsl(var(--primary-foreground))]">1</span>
