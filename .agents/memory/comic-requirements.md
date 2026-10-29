@@ -15,11 +15,11 @@ Use real illustrated comics near the headline, not a tiny symbolic drawing. Keep
 
 **How to apply:** Preserve real artwork in the introduction and results, without oversized typography, panels, or spacing.
 
-Keep three illustrated panels, with dialogue directly on the pictures. Below every comic, include “Дәстүрдің мәні” and a family reflection assignment: ask parents about the tradition, describe what happened (or why it was not held), and explain the child's understanding.
+Keep three illustrated panels in one horizontal row on all screen sizes, with dialogue directly on the pictures. Below every comic, include “Дәстүрдің мәні” and a family reflection assignment: ask parents about the tradition, describe what happened (or why it was not held), and explain the child's understanding.
 
-**Why:** The user confirmed they like the three-panel approach and explicitly asked for these learning prompts, using тұсаукесер as an example.
+**Why:** The user confirmed they like the three-panel approach, explicitly requested horizontal rather than vertical placement, and asked for these learning prompts, using тұсаукесер as an example.
 
-**How to apply:** Match the question to the comic's tradition rather than asking about тұсаукесер for every story. Do not restore the removed introductory sentence describing Айша learning through a three-panel comic.
+**How to apply:** Use horizontal scrolling on narrow screens rather than stacking panels. Match the question to the comic's tradition rather than asking about тұсаукесер for every story. Do not restore the removed introductory sentence describing Айша learning through a three-panel comic.
 
 The requested theme/headline is “Қазақ халқының дәстүрлерін комикс арқылы насихаттау”.
 

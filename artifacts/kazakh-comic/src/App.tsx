@@ -88,7 +88,7 @@ function Home() {
           </div>
           <div className="comic-card fade-up relative mt-6 overflow-hidden rounded-2xl p-3 sm:p-4" data-testid="content-sample-comic">
             <div className="ornament mb-3 h-1.5 rounded-full" />
-            <div className="grid gap-3 lg:grid-cols-3">
+            <div className="grid grid-cols-[repeat(3,minmax(260px,1fr))] gap-3 overflow-x-auto pb-2" tabIndex={0} aria-label="Үш кадрлы комикс, көлденең айналдыру">
               {sample.map((item, index) => (
                 <div key={index} className="mx-auto flex w-full max-w-[300px] flex-col gap-2">
                   <div className="relative aspect-square overflow-hidden rounded-xl border-2 border-[#2f3b38] bg-[#f5ead2]">
@@ -199,7 +199,7 @@ function Home() {
                   <p className="text-[10px] font-bold uppercase tracking-[.18em] text-[hsl(var(--muted-foreground))]">сіз таңдаған дәстүр</p>
                   <h3 className="serif mt-1 text-xl font-semibold text-[hsl(var(--primary))]">{comic.title || tradition.trim()}</h3>
                 </div>
-                <div className="grid gap-3 p-3 sm:p-4 lg:grid-cols-3">
+                <div className="grid grid-cols-[repeat(3,minmax(260px,1fr))] gap-3 overflow-x-auto p-3 sm:p-4" tabIndex={0} aria-label="Үш кадрлы комикс, көлденең айналдыру">
                   {comic.panels.map((panel, index) => (
                     <section key={index} className="mx-auto w-full max-w-[300px]" aria-label={`Кадр ${index + 1}`}>
                       <ComicCell src={`data:${comic.comicImageMimeType};base64,${comic.comicImageData}`} index={index} alt={`Комикстің ${index + 1}-кадрындағы сурет`} testId={`img-comic-panel-${index + 1}`}>
