@@ -9,7 +9,6 @@ import { ComicReflection } from '@/components/comic-reflection';
 import { ComicAnswer } from '@/components/comic-answer';
 import NotFound from '@/pages/not-found';
 import { TraditionTopics } from '@/components/tradition-topics';
-import { AiQuestion } from '@/components/ai-question';
 import { FavoriteButton } from '@/components/favorite-button';
 import { FavoritesList } from '@/components/favorites-list';
 import { useTheme } from '@/hooks/use-theme';
@@ -33,7 +32,6 @@ function Home() {
   const { theme, toggle: toggleTheme } = useTheme();
   const fav = useFavorites();
   const selectedTopic = tradition.trim();
-  const comicMatches = Boolean(comic) && comicTopic === selectedTopic;
 
   const chooseTradition = (value: string) => {
     setTradition(value);
@@ -165,7 +163,7 @@ function Home() {
                 <h2 className="serif text-xl font-semibold">Комикс</h2>
               </div>
               <div className="flex items-center gap-2">
-              {selectedTopic.length >= 2 && !comic && <FavoriteButton testId="button-favorite-selected" active={fav.isFavorite(selectedTopic)} label={selectedTopic} onToggle={() => fav.toggle(selectedTopic)} />}
+              {!comic && <FavoriteButton testId="button-favorite-selected" active={fav.isFavorite(selectedTopic)} label={selectedTopic} disabled={selectedTopic.length < 2 || selectedTopic.length > 160} onToggle={() => fav.toggle(selectedTopic)} />}
               {comic && <span className="rounded-full bg-[hsl(var(--secondary))] px-3 py-1 text-xs font-bold text-[hsl(var(--primary))]" data-testid="status-complete">Дайын</span>}
               </div>
             </div>
@@ -240,7 +238,6 @@ function Home() {
         </section>
         <div className="mt-5">
           <ComicAnswer />
-          <AiQuestion tradition={selectedTopic} meaning={comicMatches && comic ? comic.meaning : undefined} />
         </div>
         <footer className="mt-8 flex flex-col gap-2 border-t border-[hsl(var(--border))] pt-4 text-xs text-[hsl(var(--muted-foreground))] sm:flex-row sm:items-center sm:justify-between">
           <span>Әдет пен әңгіме · Дәстүрді ұрпаққа жақындатамыз</span>

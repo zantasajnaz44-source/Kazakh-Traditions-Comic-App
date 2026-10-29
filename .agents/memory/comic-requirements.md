@@ -33,11 +33,11 @@ Keep topic suggestions organized into four blocks with three traditions each: ch
 
 **How to apply:** Preserve the four-category, three-topic structure instead of adding arbitrary flat suggestions.
 
-The suggested traditions are examples, not a limit. Support custom tradition names, prioritize short waits, and let children explicitly ask an AI bot for a clear explanation near the response-writing area.
+The suggested traditions are examples, not a limit. Support custom tradition names and prioritize short waits. Keep the child's response-writing area, but do not show the separate “ИИ-ден сұра” question-and-answer block.
 
-**Why:** The user asked to handle other traditions quickly and to identify the bottom answer-giver as an AI bot.
+**Why:** The user asked to handle other traditions quickly, then explicitly asked to remove the added “ИИ-ден сұра” interface.
 
-**How to apply:** Do not restrict generation to the twelve buttons or claim uncertain cultural facts as established. Keep the child's own written answer separate from the AI's answer.
+**How to apply:** Do not restrict generation to the twelve buttons or claim uncertain cultural facts as established. Do not restore the removed AI-question block when changing the response-writing area.
 
 The requested theme/headline is “Қазақ халқының дәстүрлерін комикс арқылы насихаттау”.
 
