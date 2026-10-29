@@ -9,6 +9,12 @@ The user needs actual illustrated, cartoon-style comics, not prompts or text sce
 
 **How to apply:** Every successful comic-generation result must contain illustrations and dialogue. Do not silently replace a failed illustration with a text-only result.
 
+Comic artwork should be large, including a real illustrated comic near the headline rather than a tiny symbolic drawing.
+
+**Why:** The user explicitly rejected the small images and asked for a proper comic in the heading area too.
+
+**How to apply:** Keep illustrations prominent in both the introduction and generated results.
+
 The requested theme/headline is “Қазақ халқының дәстүрлерін комикс арқылы насихаттау”.
 
 **Why:** The user explicitly requested this wording.

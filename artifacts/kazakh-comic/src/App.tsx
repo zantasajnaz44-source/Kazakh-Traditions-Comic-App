@@ -4,8 +4,9 @@ import { useGenerateTraditionComic, type TraditionComic } from '@workspace/api-c
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { ComicCell, SpeechBubble } from '@/components/comic-cell';
 import NotFound from '@/pages/not-found';
-import { ArrowUpRight, BookOpen, Check, ChevronRight, CircleAlert, LoaderCircle, Sparkles } from 'lucide-react';
+import { BookOpen, Check, ChevronRight, CircleAlert, LoaderCircle, Sparkles } from 'lucide-react';
 import {
   Route,
   Switch,
@@ -14,6 +15,12 @@ import {
 } from 'wouter';
 
 const queryClient = new QueryClient();
+const sampleSrc = `${import.meta.env.BASE_URL}besik-panel-`;
+const sample: { who: string; text: string; tone: 'girl' | 'elder' }[] = [
+  { who: 'Айша', text: 'Әже, баланы бесікке салып, неге бауын байлаймыз?', tone: 'girl' },
+  { who: 'Әже', text: 'Бесік сәбидің тыныш ұйықтауына көмектеседі, балам. Бауды жайлы, қатты қыспай байлаймыз.', tone: 'elder' },
+  { who: 'Әже', text: 'Ал «жолы жарық болсын» деп, сәбиге ақ тілегіміз бен батамызды береміз.', tone: 'elder' },
+];
 
 function Home() {
   const [tradition, setTradition] = useState('');
@@ -50,7 +57,7 @@ function Home() {
 
   return (
     <main className="page-shell">
-      <div className="page-content mx-auto max-w-6xl px-5 pb-16 sm:px-8">
+      <div className="page-content mx-auto max-w-7xl px-4 pb-16 sm:px-8">
         <header className="flex items-center justify-between border-b border-[hsl(var(--border))] py-5">
           <div className="flex items-center gap-3" data-testid="brand-komekshi">
             <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] shadow-sm">
@@ -68,69 +75,37 @@ function Home() {
           </div>
         </header>
 
-        <section className="grid gap-10 pb-12 pt-10 md:grid-cols-[.9fr_1.1fr] md:items-center md:gap-14 md:pb-16 md:pt-16">
-          <div className="fade-up">
+        <section className="pb-12 pt-10 md:pb-16 md:pt-14">
+          <div className="fade-up mx-auto max-w-5xl text-center">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[hsl(var(--secondary))] px-3 py-1.5 text-xs font-bold text-[hsl(var(--primary))]">
               <Sparkles size={14} />
               Қазақы таным — жеңіл тілмен
             </div>
-            <h1 className="serif max-w-xl text-[2.8rem] font-semibold leading-[1.04] tracking-[-.045em] text-[hsl(var(--foreground))] sm:text-6xl">
-              Қазақ халқының дәстүрлерін <span className="relative text-[hsl(var(--primary))]">комикс арқылы насихаттау<span className="absolute -bottom-1 left-0 h-[7px] w-full rounded-full bg-[hsl(var(--accent))]/55" /></span>
+            <h1 className="serif text-[2.2rem] font-semibold leading-[1.08] tracking-[-.035em] text-[hsl(var(--foreground))] sm:text-5xl lg:text-[3.6rem]">
+              Қазақ халқының дәстүрлерін <span className="text-[hsl(var(--primary))]">комикс арқылы насихаттау</span>
             </h1>
-            <p className="mt-5 max-w-md text-base leading-7 text-[hsl(var(--muted-foreground))] sm:text-lg">
-              Айша әжесінен не атасынан сұрап, жауапты қазақы ортада салынған үш кадрлы мультфильм-комикстен біледі.
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[hsl(var(--muted-foreground))] sm:text-lg">
+              Айша киіз үйде әжесінен сұрайды, ал жауабын үш кадрлы суретті комикстен біледі.
             </p>
-            <div className="mt-8 flex items-center gap-3 text-sm font-semibold text-[hsl(var(--foreground))]">
-              <div className="flex -space-x-2" aria-hidden="true">
-                <span className="grid h-9 w-9 place-items-center rounded-full border-2 border-[hsl(var(--background))] bg-[#f2c879] text-xs">Ә</span>
-                <span className="grid h-9 w-9 place-items-center rounded-full border-2 border-[hsl(var(--background))] bg-[#a9d7c8] text-xs">Б</span>
-                <span className="grid h-9 w-9 place-items-center rounded-full border-2 border-[hsl(var(--background))] bg-[#edaa94] text-xs">А</span>
-              </div>
-              <span>Әңгіме бастауға бір қадам</span>
-              <ArrowUpRight size={16} className="text-[hsl(var(--primary))]" />
-            </div>
           </div>
-
-          <div className="relative mx-auto w-full max-w-[470px] md:justify-self-end">
-            <div className="absolute -right-6 -top-7 h-24 w-24 rounded-full border border-[hsl(var(--accent))]/40" />
-            <div className="absolute -bottom-6 -left-7 h-20 w-20 rotate-12 rounded-[1.8rem] border border-[hsl(var(--primary))]/25" />
-            <div className="comic-card relative overflow-hidden rounded-[1.7rem] p-3.5 sm:p-4">
-              <div className="ornament h-2 rounded-full" />
-              <div className="grid grid-cols-[1fr_86px] gap-3 p-3 sm:grid-cols-[1fr_110px] sm:p-4">
-                <div className="flex min-h-[206px] flex-col justify-between rounded-[1.2rem] bg-[#e8f1df] p-5 sm:min-h-[230px] sm:p-6">
-                  <span className="w-fit rounded-full bg-[hsl(var(--card))]/80 px-3 py-1 text-[10px] font-bold uppercase tracking-[.18em] text-[hsl(var(--primary))]">шағын көрініс</span>
-                  <div>
-                    <p className="serif text-2xl font-semibold leading-tight text-[#244b48] sm:text-3xl">«Әже, бұл дәстүрді неге сақтаймыз?»</p>
-                    <p className="mt-3 max-w-[240px] text-sm leading-5 text-[#526d63]">«Балам, дәстүр — ұрпаққа жеткен ізгі аманат.»</p>
+          <div className="comic-card fade-up relative mt-10 overflow-hidden rounded-[1.7rem] p-3 sm:p-5" data-testid="content-sample-comic">
+            <div className="ornament mb-4 h-2 rounded-full" />
+            <div className="grid gap-5 md:grid-cols-3">
+              {sample.map((item, index) => (
+                <div key={index} className="flex flex-col gap-3">
+                  <div className="relative aspect-square overflow-hidden rounded-xl border-2 border-[#2f3b38] bg-[#f5ead2]">
+                    <img src={`${sampleSrc}${index + 1}.webp`} alt={`Бесікке салу: ${index + 1}-кадр`} data-testid={`img-sample-panel-${index + 1}`} className="h-full w-full object-cover" />
+                    <span className="panel-number absolute left-3 top-3 rounded-full bg-[#fffaf0] px-2.5 py-1 text-[11px] font-bold text-[hsl(var(--primary))]">{String(index + 1).padStart(2, '0')}</span>
                   </div>
+                  <SpeechBubble who={item.who} text={item.text} tone={item.tone} />
                 </div>
-                <div className="relative flex flex-col items-center justify-center overflow-hidden rounded-[1.2rem] bg-[#f1d795] p-2">
-                  <div className="absolute -right-6 -top-5 h-24 w-24 rounded-full border-[12px] border-[#e6bd62]/45" />
-                  <svg viewBox="0 0 120 110" className="relative w-full max-w-[108px]" role="img" aria-label="Айша әжесімен сөйлесіп отыр">
-                    <path d="M7 105c1-23 12-35 29-35s28 12 29 35H7Z" fill="#528c79" />
-                    <path d="M59 105c1-23 12-35 29-35s24 12 25 35H59Z" fill="#e8896e" />
-                    <circle cx="36" cy="43" r="19" fill="#edbd9e" />
-                    <circle cx="88" cy="43" r="19" fill="#f2c8a5" />
-                    <path d="M17 41c0-18 10-29 23-27 11 1 17 10 16 22-7-7-14-9-23-8-4 7-9 11-16 13Z" fill="#e5e0d2" />
-                    <path d="M70 40c2-15 12-23 21-22 11 0 18 8 19 21-8-6-14-8-22-8-5 5-10 8-18 9Z" fill="#51433a" />
-                    <circle cx="30" cy="45" r="1.6" fill="#365854" /><circle cx="42" cy="45" r="1.6" fill="#365854" />
-                    <circle cx="82" cy="45" r="1.6" fill="#365854" /><circle cx="94" cy="45" r="1.6" fill="#365854" />
-                    <path d="M32 53q4 4 8 0M84 53q4 4 8 0" fill="none" stroke="#365854" strokeLinecap="round" strokeWidth="1.8" />
-                    <path d="M60 28h34a8 8 0 0 1 8 8v4H66a7 7 0 0 1-7-7v-5Z" fill="#fffaf0" stroke="#528c79" strokeWidth="1.5" />
-                    <circle cx="68" cy="35" r="1" fill="#528c79" /><circle cx="74" cy="35" r="1" fill="#528c79" /><circle cx="80" cy="35" r="1" fill="#528c79" />
-                  </svg>
-                  <span className="relative mt-1 rounded-full bg-white/70 px-2 py-1 text-[9px] font-bold text-[#365854]">Айша · Әже</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between px-4 pb-2 pt-1">
-                <span className="text-[10px] font-bold uppercase tracking-[.16em] text-[hsl(var(--muted-foreground))]">дәстүр • оқиға • ұрпақ</span>
-                <span className="panel-number font-mono text-xs text-[hsl(var(--primary))]">01 / 03</span>
-              </div>
+              ))}
             </div>
+            <p className="mt-4 px-1 text-xs font-bold uppercase tracking-[.16em] text-[hsl(var(--muted-foreground))]">Үлгі: Бесікке салу</p>
           </div>
         </section>
 
-        <section className="grid gap-7 border-t border-[hsl(var(--border))] pt-8 md:grid-cols-[.78fr_1.22fr] md:gap-10 md:pt-10" aria-label="Дәстүр таңдау және комикс">
+        <section className="grid gap-7 border-t border-[hsl(var(--border))] pt-8  md:pt-10" aria-label="Дәстүр таңдау және комикс">
           <div>
             <div className="mb-4 flex items-center gap-2">
               <span className="grid h-7 w-7 place-items-center rounded-full bg-[hsl(var(--primary))] text-xs font-bold text-[hsl(var(--primary-foreground))]">1</span>
@@ -218,29 +193,14 @@ function Home() {
                   <p className="text-[10px] font-bold uppercase tracking-[.18em] text-[hsl(var(--muted-foreground))]">сіз таңдаған дәстүр</p>
                   <h3 className="serif mt-1 text-2xl font-semibold text-[hsl(var(--primary))]">{comic.title || tradition.trim()}</h3>
                 </div>
-                <div className="grid gap-3 p-4 sm:grid-cols-2 sm:p-6 xl:grid-cols-3">
+                <div className="grid gap-5 p-4 sm:p-6 md:grid-cols-3">
                   {comic.panels.map((panel, index) => (
                     <section key={index} className={`rounded-xl border p-4 ${index % 2 === 0 ? 'border-[#d6e6d8] bg-[#f1f6ec]' : 'border-[#f0dfbd] bg-[#fbf4e5]'}`} aria-label={`Кадр ${index + 1}`}>
                       <span className="panel-number mb-3 inline-block text-[10px] font-bold uppercase tracking-[.15em] text-[hsl(var(--primary))]">Кадр {String(index + 1).padStart(2, '0')}</span>
-                      <div className="relative mb-3 aspect-square overflow-hidden rounded-lg border border-black/10 bg-[#f5ead2]">
-                        <img
-                          data-testid={`img-comic-panel-${index + 1}`}
-                          src={`data:${comic.comicImageMimeType};base64,${comic.comicImageData}`}
-                          alt={`Комикстің ${index + 1}-кадрындағы сурет`}
-                          className="absolute left-0 top-0 h-[200%] w-[200%] max-w-none object-cover"
-                          style={{
-                            left: index === 1 ? '-100%' : '0',
-                            top: index === 2 ? '-100%' : '0',
-                          }}
-                        />
-                      </div>
-                      <div className="mb-2 rounded-2xl rounded-bl-sm border border-[#e3d7c8] bg-white/85 px-3 py-2.5">
-                        <span className="text-[10px] font-bold uppercase tracking-wide text-[#b06a51]">Айша сұрайды</span>
-                        <p className="mt-1 text-sm leading-6 text-[hsl(var(--foreground))]">«{panel.girlLine}»</p>
-                      </div>
-                      <div className="rounded-2xl rounded-br-sm border border-[#cddfd3] bg-[#e2efe5] px-3 py-2.5">
-                        <span className="text-[10px] font-bold uppercase tracking-wide text-[hsl(var(--primary))]">{comic.elderRole} жауап береді</span>
-                        <p className="mt-1 text-sm leading-6 text-[hsl(var(--foreground))]">«{panel.elderLine}»</p>
+                      <div className="mb-3"><ComicCell src={`data:${comic.comicImageMimeType};base64,${comic.comicImageData}`} index={index} alt={`Комикстің ${index + 1}-кадрындағы сурет`} testId={`img-comic-panel-${index + 1}`} /></div>
+                      <div className="space-y-2">
+                        <SpeechBubble who="Айша сұрайды" text={panel.girlLine} tone="girl" />
+                        <SpeechBubble who={`${comic.elderRole} жауап береді`} text={panel.elderLine} tone="elder" />
                       </div>
                     </section>
                   ))}
