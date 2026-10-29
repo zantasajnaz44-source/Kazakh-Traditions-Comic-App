@@ -29,9 +29,9 @@ type BubbleProps = { who: string; text: string; tone: 'girl' | 'elder' };
 export function SpeechBubble({ who, text, tone }: BubbleProps) {
   const girl = tone === 'girl';
   return (
-    <div className={`relative rounded-2xl border-2 border-[#2f3b38] px-3 py-2 shadow-md ${girl ? 'bg-[#fffaf0]/95' : 'bg-[#e2efe5]/95'}`}>
+    <div className={`relative rounded-xl border-2 border-[#2f3b38] px-2.5 py-1.5 shadow-md ${girl ? 'bg-[#fffaf0]/95' : 'bg-[#e2efe5]/95'}`}>
       <span className={`text-[10px] font-bold uppercase tracking-wide ${girl ? 'text-[#b06a51]' : 'text-[hsl(var(--primary))]'}`}>{who}</span>
-      <p className="mt-0.5 text-[13px] font-medium leading-5 text-[hsl(var(--foreground))]">«{text}»</p>
+      <p className="mt-0.5 text-xs font-medium leading-[1.4] text-[hsl(var(--foreground))]">«{text}»</p>
       <span aria-hidden="true" className={`absolute -bottom-[7px] h-3 w-3 rotate-45 border-b-2 border-r-2 border-[#2f3b38] ${girl ? 'left-6 bg-[#fffaf0]' : 'right-6 bg-[#e2efe5]'}`} />
     </div>
   );

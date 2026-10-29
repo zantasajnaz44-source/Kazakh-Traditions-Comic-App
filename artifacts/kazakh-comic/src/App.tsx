@@ -58,15 +58,15 @@ function Home() {
 
   return (
     <main className="page-shell">
-      <div className="page-content mx-auto max-w-7xl px-4 pb-16 sm:px-8">
-        <header className="flex items-center justify-between border-b border-[hsl(var(--border))] py-5">
+      <div className="page-content mx-auto max-w-5xl px-4 pb-10 sm:px-6">
+        <header className="flex items-center justify-between border-b border-[hsl(var(--border))] py-3">
           <div className="flex items-center gap-3" data-testid="brand-komekshi">
-            <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] shadow-sm">
-              <BookOpen size={21} strokeWidth={2.1} />
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] shadow-sm">
+              <BookOpen size={18} strokeWidth={2.1} />
               <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-[hsl(var(--background))] bg-[hsl(var(--accent))]" />
             </div>
             <div>
-              <p className="serif text-lg font-semibold leading-tight tracking-tight">Әдет пен әңгіме</p>
+              <p className="serif text-base font-semibold leading-tight tracking-tight">Әдет пен әңгіме</p>
               <p className="mt-0.5 text-[10px] font-bold uppercase tracking-[.2em] text-[hsl(var(--muted-foreground))]">дәстүрді бірге танимыз</p>
             </div>
           </div>
@@ -76,21 +76,21 @@ function Home() {
           </div>
         </header>
 
-        <section className="pb-12 pt-10 md:pb-16 md:pt-14">
-          <div className="fade-up mx-auto max-w-5xl text-center">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[hsl(var(--secondary))] px-3 py-1.5 text-xs font-bold text-[hsl(var(--primary))]">
+        <section className="pb-7 pt-6 md:pb-9 md:pt-8">
+          <div className="fade-up mx-auto max-w-4xl text-center">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[hsl(var(--secondary))] px-2.5 py-1 text-[11px] font-bold text-[hsl(var(--primary))]">
               <Sparkles size={14} />
               Қазақы таным — жеңіл тілмен
             </div>
-            <h1 className="serif text-[2.2rem] font-semibold leading-[1.08] tracking-[-.035em] text-[hsl(var(--foreground))] sm:text-5xl lg:text-[3.6rem]">
+            <h1 className="serif text-[1.75rem] font-semibold leading-[1.12] tracking-[-.035em] text-[hsl(var(--foreground))] sm:text-4xl lg:text-[2.7rem]">
               Қазақ халқының дәстүрлерін <span className="text-[hsl(var(--primary))]">комикс арқылы насихаттау</span>
             </h1>
           </div>
-          <div className="comic-card fade-up relative mt-10 overflow-hidden rounded-[1.7rem] p-3 sm:p-5" data-testid="content-sample-comic">
-            <div className="ornament mb-4 h-2 rounded-full" />
-            <div className="grid gap-5 lg:grid-cols-3">
+          <div className="comic-card fade-up relative mt-6 overflow-hidden rounded-2xl p-3 sm:p-4" data-testid="content-sample-comic">
+            <div className="ornament mb-3 h-1.5 rounded-full" />
+            <div className="grid gap-3 lg:grid-cols-3">
               {sample.map((item, index) => (
-                <div key={index} className="flex flex-col gap-3">
+                <div key={index} className="mx-auto flex w-full max-w-[300px] flex-col gap-2">
                   <div className="relative aspect-square overflow-hidden rounded-xl border-2 border-[#2f3b38] bg-[#f5ead2]">
                     <img src={`${sampleSrc}${index + 1}.webp`} alt={`Бесікке салу: ${index + 1}-кадр`} data-testid={`img-sample-panel-${index + 1}`} className="h-full w-full object-cover" />
                     <div className="absolute inset-x-3 top-3 z-10">
@@ -101,8 +101,8 @@ function Home() {
                 </div>
               ))}
             </div>
-            <p className="mt-4 px-1 text-xs font-bold uppercase tracking-[.16em] text-[hsl(var(--muted-foreground))]">Үлгі: Бесікке салу</p>
-            <div className="mt-5">
+            <p className="mt-3 px-1 text-[10px] font-bold uppercase tracking-[.16em] text-[hsl(var(--muted-foreground))]">Үлгі: Бесікке салу</p>
+            <div className="mt-3">
               <ComicReflection
                 tradition="Бесікке салу"
                 meaning="Бесікке салу — сәбиге қамқорлық пен ақ тілек білдіретін дәстүр. Бесік жыры мен үлкендердің батасы арқылы балаға мейірім, отбасына ізгі ниет дариды."
@@ -111,13 +111,13 @@ function Home() {
           </div>
         </section>
 
-        <section className="grid gap-7 border-t border-[hsl(var(--border))] pt-8  md:pt-10" aria-label="Дәстүр таңдау және комикс">
+        <section className="grid gap-5 border-t border-[hsl(var(--border))] pt-6" aria-label="Дәстүр таңдау және комикс">
           <div>
             <div className="mb-4 flex items-center gap-2">
               <span className="grid h-7 w-7 place-items-center rounded-full bg-[hsl(var(--primary))] text-xs font-bold text-[hsl(var(--primary-foreground))]">1</span>
-              <h2 className="serif text-2xl font-semibold">Қай дәстүрді ашамыз?</h2>
+              <h2 className="serif text-xl font-semibold">Қай дәстүрді ашамыз?</h2>
             </div>
-            <form onSubmit={handleSubmit} noValidate className="comic-card rounded-2xl p-4 sm:p-5">
+            <form onSubmit={handleSubmit} noValidate className="comic-card rounded-2xl p-3 sm:p-4">
               <label htmlFor="tradition-input" className="mb-2 block text-sm font-semibold">Дәстүр атауы</label>
               <div className={`rounded-xl border bg-[hsl(var(--background))] p-1 transition-colors focus-within:border-[hsl(var(--primary))] ${validationError ? 'border-[hsl(var(--destructive))]' : 'border-[hsl(var(--input))]'}`}>
                 <textarea
@@ -142,7 +142,7 @@ function Home() {
                 type="submit"
                 data-testid="button-generate"
                 disabled={generateComic.isPending}
-                className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[hsl(var(--primary))] px-4 py-3.5 text-sm font-bold text-[hsl(var(--primary-foreground))] transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(var(--primary))] disabled:cursor-wait disabled:opacity-75"
+                className="mt-3 flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[hsl(var(--primary))] px-3 py-2.5 text-sm font-bold text-[hsl(var(--primary-foreground))] transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(var(--primary))] disabled:cursor-wait disabled:opacity-75"
               >
                 {generateComic.isPending ? <><LoaderCircle size={17} className="animate-spin" /> Комикс жасалып жатыр</> : <>Комикс жасау <ChevronRight size={17} /></>}
               </button>
@@ -168,7 +168,7 @@ function Home() {
             <div className="mb-4 flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-[hsl(var(--accent))] text-xs font-bold text-[hsl(var(--foreground))]">2</span>
-                <h2 className="serif text-2xl font-semibold">Комикс</h2>
+                <h2 className="serif text-xl font-semibold">Комикс</h2>
               </div>
               {comic && <span className="rounded-full bg-[hsl(var(--secondary))] px-3 py-1 text-xs font-bold text-[hsl(var(--primary))]" data-testid="status-complete">Дайын</span>}
             </div>
@@ -197,11 +197,11 @@ function Home() {
                 <div className="ornament h-2" />
                 <div className="border-b border-[hsl(var(--border))] px-5 py-4 sm:px-7">
                   <p className="text-[10px] font-bold uppercase tracking-[.18em] text-[hsl(var(--muted-foreground))]">сіз таңдаған дәстүр</p>
-                  <h3 className="serif mt-1 text-2xl font-semibold text-[hsl(var(--primary))]">{comic.title || tradition.trim()}</h3>
+                  <h3 className="serif mt-1 text-xl font-semibold text-[hsl(var(--primary))]">{comic.title || tradition.trim()}</h3>
                 </div>
-                <div className="grid gap-5 p-4 sm:p-6 lg:grid-cols-3">
+                <div className="grid gap-3 p-3 sm:p-4 lg:grid-cols-3">
                   {comic.panels.map((panel, index) => (
-                    <section key={index} aria-label={`Кадр ${index + 1}`}>
+                    <section key={index} className="mx-auto w-full max-w-[300px]" aria-label={`Кадр ${index + 1}`}>
                       <ComicCell src={`data:${comic.comicImageMimeType};base64,${comic.comicImageData}`} index={index} alt={`Комикстің ${index + 1}-кадрындағы сурет`} testId={`img-comic-panel-${index + 1}`}>
                         <div className="absolute inset-x-3 top-3 z-10 space-y-4">
                           <SpeechBubble who="Айша" text={panel.girlLine} tone="girl" />
@@ -231,7 +231,7 @@ function Home() {
             )}
           </div>
         </section>
-        <footer className="mt-12 flex flex-col gap-2 border-t border-[hsl(var(--border))] pt-5 text-xs text-[hsl(var(--muted-foreground))] sm:flex-row sm:items-center sm:justify-between">
+        <footer className="mt-8 flex flex-col gap-2 border-t border-[hsl(var(--border))] pt-4 text-xs text-[hsl(var(--muted-foreground))] sm:flex-row sm:items-center sm:justify-between">
           <span>Әдет пен әңгіме · Дәстүрді ұрпаққа жақындатамыз</span>
           <span>Құрметпен, ықыласпен және түсінікті тілмен</span>
         </footer>

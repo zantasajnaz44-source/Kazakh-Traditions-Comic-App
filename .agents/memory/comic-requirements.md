@@ -9,11 +9,11 @@ The user needs actual illustrated, cartoon-style comics, not prompts or text sce
 
 **How to apply:** Every successful comic-generation result must contain illustrations and dialogue. Do not silently replace a failed illustration with a text-only result.
 
-Comic artwork should be large, including a real illustrated comic near the headline rather than a tiny symbolic drawing.
+Use real illustrated comics near the headline, not a tiny symbolic drawing. Keep the overall presentation compact.
 
-**Why:** The user explicitly rejected the small images and asked for a proper comic in the heading area too.
+**Why:** The user requested a proper comic in the heading area, then asked to make everything smaller after reviewing the enlarged layout.
 
-**How to apply:** Keep illustrations prominent in both the introduction and generated results.
+**How to apply:** Preserve real artwork in the introduction and results, without oversized typography, panels, or spacing.
 
 Keep three illustrated panels, with dialogue directly on the pictures. Below every comic, include “Дәстүрдің мәні” and a family reflection assignment: ask parents about the tradition, describe what happened (or why it was not held), and explain the child's understanding.
 
