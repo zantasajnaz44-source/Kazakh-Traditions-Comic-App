@@ -7,6 +7,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { ComicCell, SpeechBubble } from '@/components/comic-cell';
 import { ComicReflection } from '@/components/comic-reflection';
 import { ComicAnswer } from '@/components/comic-answer';
+import { TraditionQuestion } from '@/components/tradition-question';
 import NotFound from '@/pages/not-found';
 import { TraditionTopics } from '@/components/tradition-topics';
 import { FavoriteButton } from '@/components/favorite-button';
@@ -238,6 +239,7 @@ function Home() {
         </section>
         <div className="mt-5">
           <ComicAnswer />
+          <TraditionQuestion tradition={selectedTopic} meaning={comic && comicTopic === selectedTopic ? comic.meaning : undefined} />
         </div>
         <footer className="mt-8 flex flex-col gap-2 border-t border-[hsl(var(--border))] pt-4 text-xs text-[hsl(var(--muted-foreground))] sm:flex-row sm:items-center sm:justify-between">
           <span>Әдет пен әңгіме · Дәстүрді ұрпаққа жақындатамыз</span>
