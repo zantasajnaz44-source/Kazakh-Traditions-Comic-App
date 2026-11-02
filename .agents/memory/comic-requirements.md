@@ -39,6 +39,18 @@ The suggested traditions are examples, not a limit. Support custom tradition nam
 
 **How to apply:** Do not restrict generation to the twelve buttons or claim uncertain cultural facts as established. Use the child-friendly heading “Түсінбегеніңді сұра” and a simple “Сұрау” button, keep the child's written reflection separate, and avoid promising literally instantaneous AI responses.
 
+Show every question's answer in two versions: “Көркем жауап” and “Қарапайым сөзбен”.
+
+**Why:** The user explicitly requested one beautifully worded answer and another in simple words.
+
+**How to apply:** Both explain the same facts; the second uses short, everyday language for a child. Prepare them together rather than making the child submit twice.
+
+Let the user copy a complete illustrated comic, not just its script or text-free artwork.
+
+**Why:** The user asked to copy their comics; illustrations and dialogue together are the core deliverable.
+
+**How to apply:** Include all three horizontal panels, exact dialogue, and the tradition's meaning. Provide a file-saving alternative when browser image-copy permission is unavailable. Exclude the learner's personal written reflection from the shared image.
+
 The requested theme/headline is “Қазақ халқының дәстүрлерін комикс арқылы насихаттау”.
 
 **Why:** The user explicitly requested this wording.

@@ -7,6 +7,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { ComicCell, SpeechBubble } from '@/components/comic-cell';
 import { ComicReflection } from '@/components/comic-reflection';
 import { ComicAnswer } from '@/components/comic-answer';
+import { ComicCopyActions } from '@/components/comic-copy-actions';
 import { TraditionQuestion } from '@/components/tradition-question';
 import NotFound from '@/pages/not-found';
 import { TraditionTopics } from '@/components/tradition-topics';
@@ -201,6 +202,7 @@ function Home() {
                   <FavoriteButton testId="button-favorite-comic" active={fav.isFavorite(comicTopic)} label={comicTopic} onToggle={() => fav.toggle(comicTopic)} />
                   </div>
                 </div>
+                <div className="px-4 pb-2 sm:px-6"><ComicCopyActions key={`${comicTopic}-${comic.comicImageData.length}`} comic={comic} /></div>
                 <div className="grid grid-cols-[repeat(3,minmax(260px,1fr))] gap-3 overflow-x-auto p-3 sm:p-4" tabIndex={0} aria-label="Үш кадрлы комикс, көлденең айналдыру">
                   {comic.panels.map((panel, index) => (
                     <section key={index} className="w-full" aria-label={`Кадр ${index + 1}`}>

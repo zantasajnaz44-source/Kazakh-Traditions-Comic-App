@@ -40,7 +40,7 @@ export function TraditionQuestion({ tradition, meaning }: Props) {
         Түсінбегеніңді сұра
       </h2>
       <p className="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
-        Дәстүр туралы сұрағыңды жаз. Қысқа әрі түсінікті жауап аласың.
+        Дәстүр туралы сұрағыңды жаз. Жауапты көркем тілмен де, қарапайым сөзбен де оқи аласың.
       </p>
       <form onSubmit={submit} className="mt-4">
         <label htmlFor={id} className="mb-2 block text-sm font-semibold">Сенің сұрағың</label>
@@ -78,9 +78,15 @@ export function TraditionQuestion({ tradition, meaning }: Props) {
         {answer.isPending && <p role="status" className="mt-3 text-sm text-[hsl(var(--muted-foreground))]">Жауап дайындалып жатыр…</p>}
         {answer.isError && <p role="alert" className="mt-3 text-sm text-[hsl(var(--destructive))]">Жауап алу мүмкін болмады. «Сұрау» батырмасын басып, қайталап көр.</p>}
         {answer.isSuccess && (
-          <div className="mt-4 rounded-xl bg-[hsl(var(--secondary))]/60 p-4" data-testid="text-question-answer">
-            <h3 className="mb-2 text-sm font-bold text-[hsl(var(--primary))]">Жауап</h3>
-            <p className="content-copy text-sm leading-6">{answer.data.answer}</p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2" data-testid="text-question-answer">
+            <section className="rounded-xl bg-[hsl(var(--secondary))]/60 p-4">
+              <h3 className="mb-2 text-sm font-bold text-[hsl(var(--primary))]">Көркем жауап</h3>
+              <p className="content-copy text-sm leading-6" data-testid="text-literary-answer">{answer.data.answer}</p>
+            </section>
+            <section className="rounded-xl border border-[hsl(var(--primary))]/25 bg-[hsl(var(--background))] p-4">
+              <h3 className="mb-2 text-sm font-bold text-[hsl(var(--primary))]">Қарапайым сөзбен</h3>
+              <p className="content-copy text-sm leading-6" data-testid="text-simple-answer">{answer.data.simpleAnswer}</p>
+            </section>
           </div>
         )}
       </div>

@@ -65,8 +65,16 @@ export interface TraditionQuestionInput {
 }
 
 export interface TraditionQuestionAnswer {
-  /** @minLength 1 */
+  /**
+     * A gracefully worded explanation in Kazakh
+     * @minLength 1
+     */
   answer: string;
+  /**
+     * The same explanation in short, child-friendly words
+     * @minLength 1
+     */
+  simpleAnswer: string;
 }
 
 export interface GeminiError {

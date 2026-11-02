@@ -71,8 +71,10 @@ export const AnswerTraditionQuestionBody = zod.object({
 
 
 
+
 export const AnswerTraditionQuestionResponse = zod.object({
-  "answer": zod.string().min(1)
+  "answer": zod.string().min(1).describe('A gracefully worded explanation in Kazakh'),
+  "simpleAnswer": zod.string().min(1).describe('The same explanation in short, child-friendly words')
 })
 
 
