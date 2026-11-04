@@ -21,6 +21,12 @@ Keep the overall presentation compact. The current approved direction is the use
 
 **How to apply:** Treat the supplied screenshot as the visual reference rather than inventing another layout. Keep its decorative cultural artwork, compact spacing, and section order while preserving existing generation, favorites, copying, theme, and learning behavior.
 
+Keep the yurt, steppe, grandfather, and boy visible on narrow previews and phones, not just large desktop screens.
+
+**Why:** The user specifically reported these illustrations missing after the screenshot-based restyle.
+
+**How to apply:** Rearrange or resize the hero art on small screens; never hide it at a desktop breakpoint.
+
 Keep three illustrated panels in one horizontal row on all screen sizes. Dialogue belongs inside the comic frames but must not obscure the illustrations. Below every comic, include “Дәстүрдің мәні” and a family reflection assignment: ask parents about the tradition, describe what happened (or why it was not held), and explain the child's understanding. Provide a place to write an answer.
 
 **Why:** The user confirmed they like the three-panel approach, explicitly requested horizontal rather than vertical placement, and asked for these learning prompts, using тұсаукесер as an example.

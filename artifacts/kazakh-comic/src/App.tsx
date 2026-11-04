@@ -113,9 +113,9 @@ function Home() {
       </header>
 
       <section className="hero-band relative overflow-hidden">
-        <img src={`${base}reference-yurt.png`} alt="" aria-hidden="true" className="fade-l absolute bottom-0 left-0 hidden h-full w-auto max-w-[30%] object-cover lg:block" />
-        <img src={`${base}reference-family.png`} alt="" aria-hidden="true" className="fade-r absolute bottom-0 right-0 hidden h-full w-auto max-w-[36%] object-cover lg:block" />
-        <div className="fade-up relative mx-auto flex max-w-[760px] flex-col items-center px-4 py-3 text-center">
+        <img src={`${base}reference-yurt.png`} alt="Киіз үй, дала мен таулар" className="hero-art hero-art-yurt" />
+        <img src={`${base}reference-family.png`} alt="Қазақ дәстүрлері туралы сөйлескен ата мен бала" className="hero-art hero-art-family" />
+        <div className="hero-copy fade-up relative mx-auto flex max-w-[760px] flex-col items-center px-4 py-3 text-center">
           <span className="bg-tgreen ref-ink inline-flex items-center gap-1.5 rounded-full px-3 py-0.5 text-[12px] font-medium"><Sparkles size={13} className="text-[#7a9b2a]" />Қазақы таным – түсінікті тілмен</span>
           <h1 className="serif ref-ink mt-1.5 text-[1.6rem] font-bold leading-[1.1] sm:text-[2.1rem]">Қазақ халқының салт-дәстүрлерін <span className="ref-teal block">комикс арқылы танып-білу</span></h1>
           <p className="mt-1.5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.25em] opacity-80"><Rule />Мұра · Өнеге · Ұрпақ<Rule /></p>
