@@ -15,11 +15,11 @@ Use this three-stage conversation: the child asks what the tradition is; asks wh
 
 **How to apply:** Keep one child question and one adult explanation in each frame, in that order of topics.
 
-Keep the overall presentation compact. Do not show a sample three-panel comic or reflection questions in the headline/hero area.
+Keep the overall presentation compact. The current approved direction is the user's illustrated reference: a yurt-and-family hero, two-column desktop dashboard, four pastel topic blocks, purple question area, and teal ornamental footer. Do not add an extra sample comic or homework questions to the hero.
 
-**Why:** After reviewing the illustrated hero, the user explicitly asked to remove its three pictures and questions and replace them with something else.
+**Why:** The user previously removed sample panels and homework from the hero, then supplied an illustrated dashboard screenshot and asked for the application to look like it.
 
-**How to apply:** Reserve illustrated panels and reflection questions for generated results. Keep the introduction simple, without oversized typography or spacing.
+**How to apply:** Treat the supplied screenshot as the visual reference rather than inventing another layout. Keep its decorative cultural artwork, compact spacing, and section order while preserving existing generation, favorites, copying, theme, and learning behavior.
 
 Keep three illustrated panels in one horizontal row on all screen sizes. Dialogue belongs inside the comic frames but must not obscure the illustrations. Below every comic, include “Дәстүрдің мәні” and a family reflection assignment: ask parents about the tradition, describe what happened (or why it was not held), and explain the child's understanding. Provide a place to write an answer.
 
@@ -33,11 +33,11 @@ Keep topic suggestions organized into four blocks with three traditions each: ch
 
 **How to apply:** Preserve the four-category, three-topic structure instead of adding arbitrary flat suggestions.
 
-The suggested traditions are examples, not a limit. Support custom tradition names and prioritize short waits. Keep the child's response-writing area and a separate quick question-and-answer area titled “Түсінбегеніңді сұра”.
+The suggested traditions are examples, not a limit. Support custom tradition names and prioritize short waits. Keep the child's response-writing area (“Менің ойым”) and a separate quick question-and-answer area (“Білгің келсе, сұра!”).
 
-**Why:** After removing the “ИИ-ден сұра” interface, the user explicitly requested a question box again under a correctly phrased Kazakh title, where a child asks and receives a fast explanation.
+**Why:** After removing the “ИИ-ден сұра” interface, the user explicitly requested a question box again; their later supplied visual reference renamed the question and reflection sections.
 
-**How to apply:** Do not restrict generation to the twelve buttons or claim uncertain cultural facts as established. Use the child-friendly heading “Түсінбегеніңді сұра” and a simple “Сұрау” button, keep the child's written reflection separate, and avoid promising literally instantaneous AI responses.
+**How to apply:** Do not restrict generation to the twelve buttons or claim uncertain cultural facts as established. Follow the reference's question heading and “Сұрақ қою” button, keep the child's written reflection separate, and avoid promising literally instantaneous AI responses.
 
 Show every question's answer in two versions: “Көркем жауап” and “Қарапайым сөзбен”.
 
@@ -51,8 +51,8 @@ Let the user copy a complete illustrated comic, not just its script or text-free
 
 **How to apply:** Include all three horizontal panels, exact dialogue, and the tradition's meaning. Provide a file-saving alternative when browser image-copy permission is unavailable. Exclude the learner's personal written reflection from the shared image.
 
-The requested theme/headline is “Қазақ халқының дәстүрлерін комикс арқылы насихаттау”.
+The current reference headline is “Қазақ халқының салт-дәстүрлерін комикс арқылы танып-білу”.
 
-**Why:** The user explicitly requested this wording.
+**Why:** The user asked for everything to match their supplied reference photo, which uses this wording instead of their earlier headline.
 
-**How to apply:** Preserve this theme when changing the app's copy.
+**How to apply:** Follow the reference's current headline and section labels when changing the app's copy, rather than restoring older wording.

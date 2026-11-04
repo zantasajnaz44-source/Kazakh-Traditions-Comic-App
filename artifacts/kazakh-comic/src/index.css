@@ -268,7 +268,7 @@
 
 :root { color-scheme: light; }
 * { box-sizing: border-box; }
-button, input, textarea { font: inherit; }
+button, input, textarea { font-family: inherit; }
 button { cursor: pointer; }
 
 .page-shell {
@@ -429,3 +429,22 @@ button { cursor: pointer; }
 .bubble-child-name { color: var(--child-name); }
 .comic-badge { border-color: var(--comic-ink); background: var(--comic-paper); }
 .dark .page-shell::before { opacity: .12; }
+
+/* Reference restyle */
+:root { --page:#fefbf6; --teal:#01736b; --footer:#014f4f; --t-yellow:#fdf2d2; --t-pink:#f9f0ed; --t-blue:#e4f1f7; --t-green:#e6f4db; --qa:#f7effc; --purple:#873bb0; --ink:#071b28; --hint:#fdf2d2; --fav:#fbeeee; --surface:#fffdf9; --line:#e8dfd2; }
+.dark { --page:#10201f; --teal:#3cb7a9; --footer:#0b3434; --t-yellow:#3a3420; --t-pink:#3b2b2a; --t-blue:#1f3440; --t-green:#24362024; --t-green:#253823; --qa:#2e2338; --purple:#c38ae6; --ink:#f4ede0; --hint:#3a3420; --fav:#3a2626; --surface:#172b2a; --line:#2f4645; }
+.ref-page { background: var(--page); color: var(--ink); min-height: 100dvh; overflow-x: hidden; }
+.ref-ink { color: var(--ink); }
+.ref-teal { color: var(--teal); }
+.ref-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.bg-tyellow{background:var(--t-yellow)} .bg-tpink{background:var(--t-pink)} .bg-tblue{background:var(--t-blue)} .bg-tgreen{background:var(--t-green)} .bg-qa{background:var(--qa)} .bg-hint{background:var(--hint)} .bg-fav{background:var(--fav)}
+.btn-teal { background: var(--teal); color: #fff; } .dark .btn-teal { color: #08201f; }
+.btn-purple { background: var(--purple); color: #fff; } .dark .btn-purple { color: #1d1027; }
+.text-purple { color: var(--purple); }
+.ref-footer { background: var(--footer); color: #fbf3df; }
+.hero-band { background: linear-gradient(180deg, #fbf3e3, var(--page)); }
+.dark .hero-band { background: linear-gradient(180deg, #1a302e, var(--page)); }
+.fade-x { mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.fade-l { mask-image: linear-gradient(90deg, #000 70%, transparent); }
+.fade-r { mask-image: linear-gradient(90deg, transparent, #000 25%); }
+.ref-input { background: var(--surface); border: 1px solid var(--line); color: var(--ink); }
