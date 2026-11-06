@@ -43,6 +43,7 @@ jobs:
         run: pnpm --filter @workspace/kazakh-comic build
         env:
           BASE_PATH: /Kazakh-Traditions-Comic-App/
+          PORT: "3000"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
